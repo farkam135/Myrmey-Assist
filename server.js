@@ -22,9 +22,13 @@ app.post('/api/login', (req, res) => {
                             completedCourses: studentData[1]
                         }
                     });
-                });
+                })
+                .catch((err) => {
+                    console.err(err);
+                })
         })
         .catch((error) => {
+            console.error(error);
             res.send({
                 success: false,
                 error
