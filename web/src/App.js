@@ -23,7 +23,7 @@ class App extends Component {
       }
     });
 
-    fetch('http://localhost:8080/api/login', {
+    fetch('/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
