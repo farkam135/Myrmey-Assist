@@ -43,7 +43,7 @@ class LoginPage extends Component {
                                         <button className={'button is-info is-large is-fullwidth ' + (this.props.loginStatus.loggingIn && 'is-loading')} onClick={this.login}>Login</button>
                                     </div>
                                 </div>
-                                {this.props.loginStatus.error !== undefined && <MessageBox type="is-danger" message="Invalid ucinetid or password!" />}
+                                {this.props.loginStatus.error !== undefined && <MessageBox type="is-danger" message={this.props.loginStatus.error} />}
                             </div>
                         </div>
                     </div>
