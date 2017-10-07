@@ -25,12 +25,4 @@ build/Release
 
 # Dependency directory
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
-node_modules/*
-web/node_modules/*
-
-# We need the custom bulma sass files in web
-!web/node_modules/bulma/
-web/node_modules/bulma/*
-!web/node_modules/bulma/sass/
-web/node_modules/bulma/sass/*
-!web/node_modules/bulma/sass/utilities/
+node_modules

@@ -1,2 +1,5 @@
-@import '../node_modules/bulma/sass/utilities/initial-variables.sass';
+//The modified bulma files to import.
+@import './bulma-custom/initial-variables.sass';
+@import '../node_modules/bulma/sass/utilities/functions.sass';
+@import './bulma-custom/derived-variables.sass';
 @import '../node_modules/bulma/bulma.sass';
