@@ -15,8 +15,12 @@ class LoginPage extends Component {
         });
     }
 
-    login = () => {
-        this.props.login(this.state.ucinetid, this.state.password);
+    login = (e, ucinetid_auth) => {
+        this.props.login({
+            ucinetid_auth,
+            ucinetid: this.state.ucinetid,
+            password: this.state.password
+        })
     }
 
     render() {
@@ -27,24 +31,27 @@ class LoginPage extends Component {
                         <div className="columns">
                             <div className="column is-4 is-offset-4">
                                 <div className="box">
-                                    <div className="field">
-                                        <div className="control">
-                                            <label className="label">UCINETID</label>
-                                            <input className="input" type="text" id="ucinetid" value={this.state.ucinetid} onChange={this.onTextChange} />
+                                    <div className="field" id="myrmey_login">
+                                        <div className="field">
+                                            <div className="control">
+                                                <label className="label">UCINETID</label>
+                                                <input className="input" type="text" id="ucinetid" value={this.state.ucinetid} onChange={this.onTextChange} />
+                                            </div>
+                                        </div>
+                                        <div className="field">
+                                            <div className="control">
+                                                <label className="label">PASSWORD</label>
+                                                <input className="input" type="password" id="password" value={this.state.password} onChange={this.onTextChange} />
+                                            </div>
+                                        </div>
+                                        <div className="field">
+                                            <div className="control">
+                                                <button className={'button is-info is-large is-fullwidth ' + (this.props.loginStatus.loggingIn && 'is-loading')} onClick={this.login}>Login</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="field">
-                                        <div className="control">
-                                            <label className="label">PASSWORD</label>
-                                            <input className="input" type="password" id="password" value={this.state.password} onChange={this.onTextChange} />
-                                        </div>
-                                    </div>
-                                    <div className="field">
                                     <div className="control">
-                                        <button className={'button is-info is-large is-fullwidth ' + (this.props.loginStatus.loggingIn && 'is-loading')} onClick={this.login}>Login</button>
-                                    </div>
-                                    </div>
-                                    <div className="control">
+                                        <input type="hidden" id="ucinetid_auth" onClick={(e) => {this.login(e,e.target.value)}} />
                                         <a id="webauth_login" className={'button is-primary is-outlined is-medium is-fullwidth ' + (this.props.loginStatus.loggingIn && 'is-loading')} href="http://localhost:3000">Login Through WebAuth </a>
                                     </div>
                                 </div>

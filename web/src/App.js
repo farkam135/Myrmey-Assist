@@ -14,7 +14,7 @@ class App extends Component {
     }
   }
 
-  login = (ucinetid, password) => {
+  login = (credentials) => {
     this.setState({
       user: {
         loginStatus: {
@@ -23,15 +23,13 @@ class App extends Component {
       }
     });
 
+    console.log(credentials);
     fetch('/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        ucinetid,
-        password
-      })
+      body: JSON.stringify(credentials)
     }).then((res) => res.json())
       .then((res) => {
         if(!res.success){
