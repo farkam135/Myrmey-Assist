@@ -39,8 +39,13 @@ class LoginPage extends Component {
                                             <input className="input" type="password" id="password" value={this.state.password} onChange={this.onTextChange} />
                                         </div>
                                     </div>
+                                    <div className="field">
                                     <div className="control">
                                         <button className={'button is-info is-large is-fullwidth ' + (this.props.loginStatus.loggingIn && 'is-loading')} onClick={this.login}>Login</button>
+                                    </div>
+                                    </div>
+                                    <div className="control">
+                                        <a id="webauth_login" className={'button is-primary is-outlined is-medium is-fullwidth ' + (this.props.loginStatus.loggingIn && 'is-loading')} href="http://localhost:3000">Login Through WebAuth </a>
                                     </div>
                                 </div>
                                 {this.props.loginStatus.error !== undefined && <MessageBox type="is-danger" message={this.props.loginStatus.error} />}
