@@ -21,7 +21,7 @@ function getStudentData(auth, res) {
             });
         })
         .catch((err) => {
-            console.err(err);
+            console.error(err);
         })
 }
 
