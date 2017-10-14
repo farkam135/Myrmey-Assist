@@ -51,8 +51,12 @@ class LoginPage extends Component {
                                         </div>
                                     </div>
                                     <div className="control">
-                                        <input type="hidden" id="ucinetid_auth" onClick={(e) => {this.login(e,e.target.value)}} />
-                                        <a id="webauth_login" className={'button is-primary is-outlined is-medium is-fullwidth ' + (this.props.loginStatus.loggingIn && 'is-loading')} href="http://localhost:3000">Login Through WebAuth </a>
+                                        { true ?//global.chrome.app.isInstalled ?
+                                        [<input type="hidden" id="ucinetid_auth" onClick={(e) => {this.login(e,e.target.value)}} />,
+                                        <a id="webauth_login" className={'button is-primary is-outlined is-medium is-fullwidth ' + (this.props.loginStatus.loggingIn && 'is-loading')} href="http://localhost:3000">Login Through WebAuth </a>]
+                                        :
+                                        <button className={'button is-primary is-outlined is-medium is-fullwidth ' + (this.props.loginStatus.loggingIn && 'is-loading')} onClick={() => {global.chrome.webstore.install()}}>Enable WebAuth Login</button>
+                                        }
                                     </div>
                                 </div>
                                 {this.props.loginStatus.error !== undefined && <MessageBox type="is-danger" message={this.props.loginStatus.error} />}
