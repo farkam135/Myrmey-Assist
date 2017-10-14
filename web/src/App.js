@@ -50,8 +50,8 @@ class App extends Component {
             loginStatus: {
               loggingIn: false
             },
-            studentInfo: res.data.degreeWorks.student,
-            advice: res.data.degreeWorks.advice,
+            studentInfo: res.data.studentInfo,
+            advice: res.data.advice,
             courses: res.data.courses
           }
         });
