@@ -9,14 +9,15 @@ app.use(bodyParser.urlencoded({
 
 function getStudentData(auth, res) {
     console.log(`Pulling information for: ${auth}`);
-    return Promise.all([UCI.STUDENT.getDegreeWorks(auth), UCI.STUDENT.getCompletedCourses(auth)])
+    return Promise.all([UCI.STUDENT.getDegreeWorks(auth), UCI.STUDENT.getCourses(auth)])
         .then((studentData) => {
             console.log(`INFORMATION PULLED`);
             res.send({
                 success: true,
                 data: {
-                    degreeWorks: studentData[0],
-                    completedCourses: studentData[1]
+                    studentInfo: studentData[0].student,
+                    advice: studentData[0].advice,
+                    courses: studentData[1]
                 }
             });
         })
