@@ -31,6 +31,7 @@ class LoginPage extends Component {
                         <div className="columns">
                             <div className="column is-4 is-offset-4">
                                 <div className="box">
+                                    {!global.chrome.app.isInstalled &&
                                     <div className="field" id="myrmey_login">
                                         <div className="field">
                                             <div className="control">
@@ -49,11 +50,11 @@ class LoginPage extends Component {
                                                 <button className={'button is-info is-large is-fullwidth ' + (this.props.loginStatus.loggingIn && 'is-loading')} onClick={this.login}>Login</button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>}
                                     <div className="control">
                                         { true ?//global.chrome.app.isInstalled ?
                                         [<input type="hidden" id="ucinetid_auth" onClick={(e) => {this.login(e,e.target.value)}} />,
-                                        <a id="webauth_login" className={'button is-primary is-outlined is-medium is-fullwidth ' + (this.props.loginStatus.loggingIn && 'is-loading')} href="http://localhost:3000">Login Through WebAuth </a>]
+                                        <a id="webauth_login" className={'button is-primary is-outlined is-medium is-fullwidth ' + (this.props.loginStatus.loggingIn && 'is-loading')} href="https://login.uci.edu/ucinetid/webauth?return_url=http://localhost:3000/webauth">Login Through WebAuth </a>]
                                         :
                                         <button className={'button is-primary is-outlined is-medium is-fullwidth ' + (this.props.loginStatus.loggingIn && 'is-loading')} onClick={() => {global.chrome.webstore.install()}}>Enable WebAuth Login</button>
                                         }
