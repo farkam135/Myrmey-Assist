@@ -1,25 +1,22 @@
 import React, { Component } from 'react';
-import LoginPage from './pages/login';
 
+import LoginPage from './pages/login';
+import HomePage from './pages/home';
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {
-        loginStatus: {
-          loggingIn: false,
-          error: undefined
-        }
+      loginStatus: {
+        loggingIn: false,
+        error: undefined
       }
     }
   }
 
   login = (credentials) => {
     this.setState({
-      user: {
-        loginStatus: {
-          loggingIn: true
-        }
+      loginStatus: {
+        loggingIn: true
       }
     });
 
@@ -32,13 +29,11 @@ class App extends Component {
       body: JSON.stringify(credentials)
     }).then((res) => res.json())
       .then((res) => {
-        if(!res.success){
+        if (!res.success) {
           this.setState({
-            user: {
-              loginStatus: {
-                loggingIn: false,
-                error: res.error
-              }
+            loginStatus: {
+              loggingIn: false,
+              error: res.error
             }
           });
           return;
@@ -46,10 +41,8 @@ class App extends Component {
 
         console.log(res);
         this.setState({
+          loginStatus: null,
           user: {
-            loginStatus: {
-              loggingIn: false
-            },
             studentInfo: res.data.studentInfo,
             advice: res.data.advice,
             courses: res.data.courses
@@ -58,11 +51,9 @@ class App extends Component {
       })
       .catch((err) => {
         this.setState({
-          user: {
-            loginStatus: {
-              loggingIn: false,
-              error: 'An unexpected error occurred.'
-            }
+          loginStatus: {
+            loggingIn: false,
+            error: 'An unexpected error occurred.'
           }
         });
       })
@@ -71,7 +62,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <LoginPage login={this.login} loginStatus={this.state.user.loginStatus} />
+        {!this.state.user ?
+          <LoginPage login={this.login} loginStatus={this.state.loginStatus} />
+          :
+          <HomePage user={this.state.user} />
+        }
       </div>
     );
   }
