@@ -1,4 +1,4 @@
-![Myrmey the Anteater](https://lh3.googleusercontent.com/mSg0zR1IiMw93ePQW0UwIO7iziU6Bs9oFI7M-9avg-Kiu0xjL4oILnHyrOtUKb3aI3yXAaK2Wv2iA_E=w1920-h853)
+![Myrmey the Anteater](https://image.ibb.co/mOvUkm/rsz_myrmey.png)
 # Myrmey Assist
 An all in one UCI SOC
 ## How To Run
