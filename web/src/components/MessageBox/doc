@@ -1,0 +1,15 @@
+# MessageBox
+
+The MessageBox component is a simple component that wraps bulma.io's message class style.
+The box has a border and shaded in color creating a notification stlye box.
+
+## Props
+- type {string}
+The type is the bulma style modifier for colors. Possible values are: is-primary, is-link, is-info, is-success, is-warning, is-danger
+
+- message {string}
+The message to display in the MessageBox
+
+## Example
+<MessageBox type="is-danger" message="Invalid ucinetid and password" />
+Displays a danger (red) message box with the message "Invalid ucinetid and password" inside.
