@@ -42,11 +42,7 @@ class App extends Component {
         console.log(res);
         this.setState({
           loginStatus: null,
-          user: {
-            studentInfo: res.data.studentInfo,
-            advice: res.data.advice,
-            courses: res.data.courses
-          }
+          user: res.data
         });
       })
       .catch((err) => {
