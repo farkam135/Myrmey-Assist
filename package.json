@@ -20,6 +20,7 @@
   "dependencies": {
     "UCI": "git+https://fd4d94f1f4bc5e70e57691f4671f16ccd4a704d3:x-oauth-basic@github.com/farkam135/UCI-API.git",
     "body-parser": "^1.18.2",
-    "express": "^4.16.1"
+    "express": "^4.16.1",
+    "jsonwebtoken": "^8.1.0"
   }
 }
