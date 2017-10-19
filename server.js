@@ -1,6 +1,7 @@
 const UCI = require('UCI');
 const app = require('express')();
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const bodyParser = require('body-parser');
 const config = require('./config.json');
 
@@ -14,8 +15,9 @@ function getStudentData(auth, res) {
     return Promise.all([UCI.STUDENT.getDegreeWorks(auth), UCI.STUDENT.getCourses(auth)])
         .then((studentData) => {
             console.log(`INFORMATION PULLED`);
+            let id = crypto.createHash('sha256').update(`${studentData[0].student.id}${studentData[0].student.name}${config.salt}`).digest('hex');
             let myrmeyid = jwt.sign({
-                id: `${studentData[0].student.id}${studentData[0].student.name}${config.salt}`,
+                id,
                 courses: `${Object.keys(studentData[1].inProgress)}`
             }, config.salt);
 
