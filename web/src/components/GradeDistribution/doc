@@ -1,0 +1,40 @@
+# GradeDistribution
+
+The GradeDistribution component is a component that renders a table showing Instructor's and their grade distribution.
+The component expects the grades to already be pulled as well as the instructor object, it merely renders the information.
+
+## Props
+- grades {[object]}
+An array where each index represents a professor and their grade distribution. The object should contain the following keys:
+    - instructor {object}
+        An instructor object which has 2 keys, an optional `id` which is the professor's ratemyproffesor id and a mandatory `name` key.
+    - A,B,C,D,F {number}
+        Key is the grade and the value is the number of students who received that grade.
+
+## Example
+<GradeDistribution grades={[
+                {
+                    instructor: {
+                        id: 59341,
+                        name: 'DILLENCOURT, M.'
+                    },
+                    F: 1,
+                    D: 0,
+                    C: 0,
+                    B: 0,
+                    A: 0
+                },
+                {
+                    instructor: {
+                        name: 'KLEFSTAD, R.'
+                    },
+                    F: 0,
+                    D: 0,
+                    C: 0,
+                    B: 0,
+                    A: 1
+                }
+            ]} />
+
+This example will render a table with 2 rows, one row will be for Dillencourt and one for Klefstad. Since an id was provided
+for Dillencourt, his name will be a hyperlink that when clicked will open up their ratemyprofessor in a new tab.
