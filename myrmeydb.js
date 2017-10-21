@@ -2,21 +2,13 @@ const config = require('./config.json');
 const pg = require('pg').Pool;
 
 const pool = new pg(config.db);
-/* pool.connect()
-  .then((client) => {
-    client.query('SELECT * FROM completed_courses')
-      .then((res) => {
-        console.log(res.rows)
-        client.release();
-      })
-      .catch((e) => {
-        console.log(e);
-        client.release();
-      })
-  }); */
 
- // pool.end();
-
+//Used to check connection before actual queries are run.
+pool.query('SELECT NOW()')
+.catch((err) => {
+  console.error(`ERROR CONNECTING TO DB: ${err}`);
+  process.exit(1);
+});
 
 /**
  * addGrades
