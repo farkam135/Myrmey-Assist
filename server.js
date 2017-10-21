@@ -1,4 +1,5 @@
 const UCI = require('UCI');
+const MYRMEYDB = require('./myrmeydb.js');
 const app = require('express')();
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
@@ -38,15 +39,23 @@ function getStudentData(auth, res) {
                 courses: Object.keys(studentData[1].inProgress)
             });
 
-            res.send({
-                success: true,
-                data: {
-                    myrmeyid: myrmeyid,
-                    studentInfo: studentData[0].student,
-                    advice: studentData[0].advice,
-                    courses: studentData[1]
-                }
-            });
+            console.log(`Adding Grades to MyrmeyDB`);
+            MYRMEYDB.addGrades(hashedId, studentData[1].completed);
+
+            console.log(`Getting Manually Added Completed Courses`);
+            MYRMEYDB.getCompletedCourses(hashedId)
+                .then((manualCompletedCourses) => {
+                    studentData[1].completed = Object.assign(studentData[1].completed, manualCompletedCourses);
+                    res.send({
+                        success: true,
+                        data: {
+                            myrmeyid: myrmeyid,
+                            studentInfo: studentData[0].student,
+                            advice: studentData[0].advice,
+                            courses: studentData[1]
+                        }
+                    });
+                });
         })
         .catch((err) => {
             console.error(err);
