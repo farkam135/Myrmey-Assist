@@ -13,17 +13,15 @@ app.use(bodyParser.urlencoded({
 /**
  * generateMyrmeyId
  * 
- * Generates a MyrmeyId given the student's id number, name and any additional data that should be a part of the jwt. The generated
+ * Generates a MyrmeyId given the student's hashed id and any additional data that should be a part of the jwt. The generated
  * MyrmeyId is a jwt that can be used to authenticate student with MyrmeyAssist specific resources, such as the MyrmeyMessenger.
- * @param {string} idNumber The student's id number as pulled from UCI
- * @param {string} name The student's full name as pulled from UCI
+ * @param {string} id The student's hashed id
  * @param {object} data Any additional data that might be required by other Myrmey resources
  * @return {string} The MyrmeyId jwt
  */
-function generateMyrmeyId(idNumber, name, data){
-    let hashedId = crypto.createHash('sha256').update(`${idNumber}${name}${config.salt}`).digest('hex');
+function generateMyrmeyId(id, data) {
     let signObject = Object.assign({
-        id: hashedId
+        id
     }, data);
 
     return jwt.sign(signObject, config.salt);
@@ -33,8 +31,10 @@ function getStudentData(auth, res) {
     console.log(`Pulling information for: ${auth}`);
     return Promise.all([UCI.STUDENT.getDegreeWorks(auth), UCI.STUDENT.getCourses(auth)])
         .then((studentData) => {
-            console.log(`INFORMATION PULLED`);
-            let myrmeyid = generateMyrmeyId(studentData[0].student.id, studentData[0].student.name, {
+            let hashedId = crypto.createHash('sha256').update(`${studentData[0].student.id}${studentData[0].student.name}${config.salt}`).digest('hex');
+
+            console.log(`Generating MyrmeyId`);
+            let myrmeyid = generateMyrmeyId(hashedId, {
                 courses: Object.keys(studentData[1].inProgress)
             });
 
