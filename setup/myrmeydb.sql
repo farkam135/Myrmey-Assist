@@ -5,28 +5,7 @@
 -- Dumped from database version 9.6.5
 -- Dumped by pg_dump version 9.6.5
 
--- Started on 2017-10-20 20:09:19 PDT
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
--- TOC entry 2164 (class 1262 OID 16385)
--- Name: myrmey; Type: DATABASE; Schema: -; Owner: myrmey
---
-
-CREATE DATABASE myrmey WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
-
-
-ALTER DATABASE myrmey OWNER TO myrmey;
-
-\connect myrmey
+-- Started on 2017-10-20 21:11:32 PDT
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -108,7 +87,7 @@ ALTER TABLE ONLY grades
     ADD CONSTRAINT grades_pk PRIMARY KEY (id, year_term, dept, num);
 
 
--- Completed on 2017-10-20 20:09:19 PDT
+-- Completed on 2017-10-20 21:11:33 PDT
 
 --
 -- PostgreSQL database dump complete
