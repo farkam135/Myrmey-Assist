@@ -1,0 +1,10 @@
+{
+    "salt": "myrmey",
+    "db": {
+        "host": "localhost",
+        "user": "myrmey",
+        "password": "",
+        "database": "myrmey",
+        "port": "5432"
+    }
+}
