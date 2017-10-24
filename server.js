@@ -137,7 +137,7 @@ app.get('/api/getCourseDetails', (req, res) => {
 
 UCI.SOC.init()
     .then(() => {
-        return Promise.all([UCI.SOC.loadAll('COMPSCI')]);
+        return Promise.all([UCI.PROFS.refreshProfs(), UCI.SOC.loadDept('COMPSCI')]);
     })
     .then(() => {
         app.listen(8080, () => {
