@@ -62,6 +62,48 @@ function getStudentData(auth, res) {
         })
 }
 
+function getCourseDetails(courseName, res) {
+    let courseDeptNum = /^(.+)\s(.+)$/.exec(courseName);
+    let dbSelector = {
+        dept: courseDeptNum[1],
+        num: courseDeptNum[2]
+    }
+
+    Promise.all([UCI.SOC.getCourseDetails([courseName]), MYRMEYDB.getGrades(dbSelector)])
+        .then((response) => {
+            let course = response[0][courseName];
+            let courseGrades = {};
+
+            //Go through the results of the db grade lookup for the course, organizing the grades by professor.
+            response[1].forEach((row) => {
+                if (courseGrades[row.instructor] === undefined) {
+                    let ratemyprofessor = UCI.PROFS.getProfessor(row.instructor);
+                    courseGrades[row.instructor] = {
+                        instructor: {
+                            name: row.instructor,
+                            rmp: ratemyprofessor
+                        },
+                        A: 0,
+                        B: 0,
+                        C: 0,
+                        D: 0,
+                        F: 0,
+                        P: 0,
+                        NP: 0
+                    };
+                }
+
+                courseGrades[row.instructor][row.grade[0]] += 1; //Use row.grade[0] to treat +/- the same. A+/- = A
+            })
+
+            course.gradeDistributions = [];
+            Object.keys(courseGrades).forEach((instructor) => {
+                course.gradeDistributions.push(courseGrades[instructor]);
+            });
+            res.send(course);
+        })
+}
+
 app.post('/api/login', (req, res) => {
     console.log(`[LOGIN REQUEST]`);
     if (req.body.ucinetid_auth) {
@@ -83,4 +125,22 @@ app.post('/api/login', (req, res) => {
         })
 });
 
-app.listen(8080);
+app.get('/api/getCourseDetails', (req, res) => {
+    console.log(`[getCourseDetails REQUEST]`);
+    if (!req.query.course) {
+        res.send('ERROR: Please provide a course.');
+        return;
+    }
+
+    getCourseDetails(req.query.course, res);
+});
+
+UCI.SOC.init()
+    .then(() => {
+        return Promise.all([UCI.PROFS.refreshProfs(), UCI.SOC.loadDept('COMPSCI')]);
+    })
+    .then(() => {
+        app.listen(8080, () => {
+            console.log('Server Running...');
+        });
+    })
