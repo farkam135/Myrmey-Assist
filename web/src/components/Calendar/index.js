@@ -3,8 +3,11 @@ import Hour from "./Hour/"
 import Day from "./Day/"
 
 export const START_HOUR = 6;
-export const END_HOUR = 22;
+export const END_HOUR = 23;
 export const TABLE_WIDTH_PERCENTAGE = 50;
+export const HEADER_COLOR = "#0063A4";
+export const TIME_COLOR = "#FFD202";
+export const CELL_COLOR = "#eee";
 
 /*{
     "COMPSCI 143B": {
@@ -56,6 +59,7 @@ class Calendar extends Component {
             dept: "COMPSCI",
             num: "161",
             time: "7:00 - 8:00p",
+            location: "BS3 1200"
         })
         /*this.state.classes.Monday.push({
             dept: "COMPSCI",
@@ -67,8 +71,10 @@ class Calendar extends Component {
     renderHourHeaders() {
         let hourSlots = [];
         for (let hour = START_HOUR; hour <= END_HOUR; hour++) {
-            hourSlots.push((<div className="column" key={hour} 
-                style={timeCell}>{hour <= 12 ? hour : hour - 12}{hour >= 12 ? "PM" : "AM"}</div>
+            hourSlots.push((
+                <div className="column" key={hour} style={timeCell}>
+                    {hour <= 12 ? hour : hour - 12}{hour >= 12 ? "PM" : "AM"}
+                </div>
             ));
         }
         return hourSlots;
@@ -86,7 +92,7 @@ class Calendar extends Component {
                     <div className="column">Fri</div>
                 </div>     
                 <div className="columns is-mobile" style={timeContainer}>
-                    <div style={{display:"flex", flexDirection: "column", width: `${TABLE_WIDTH_PERCENTAGE}%`}}>
+                    <div style={{display:"flex", flexDirection: "column", width: `${TABLE_WIDTH_PERCENTAGE-25}%`}}>
                         {this.renderHourHeaders()}
                     </div>
                     <Day classes={this.state.classes.Monday}/>
@@ -100,25 +106,29 @@ class Calendar extends Component {
     }
 }
 
-var container = {
+const container = {
     width: `${TABLE_WIDTH_PERCENTAGE}%`,
 }
-var header =  {
+const header =  {
     fontFamily:"Verdana", 
     fontWeight: "bold", 
-    backgroundColor:"#0063A4", 
+    backgroundColor: HEADER_COLOR, 
+    color: "white", 
+    textAlign: "center",
+    textDecorationLine: "underline"
+}
+const timeContainer = {
+    fontFamily:"Verdana", 
+    fontWeight: "bold", 
     color: "white", 
     textAlign: "center"
 }
-var timeContainer = {
-    fontFamily:"Verdana", 
-    fontWeight: "bold", 
-    color: "white", 
-    textAlign: "center"
-}
-var timeCell = {
-    backgroundColor:"#FFD202", 
-    border:"1px solid black", 
+const timeCell = {
+    backgroundColor: TIME_COLOR, 
+    //border:"1px solid black", 
+    borderStyle: "dotted",
+    borderWidth: 1.3,
+    borderColor: "black",
     borderLeft: 0, 
     borderTop: 0
 }
