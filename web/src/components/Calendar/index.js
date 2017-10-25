@@ -58,7 +58,7 @@ class Calendar extends Component {
         this.state.classes.Monday.push({
             dept: "COMPSCI",
             num: "161",
-            time: "7:00 - 8:00p",
+            time: "7:00 - 8:50p",
             location: "BS3 1200"
         })
         /*this.state.classes.Monday.push({
