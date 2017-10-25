@@ -8,12 +8,13 @@ class Day extends Component {
             this.setState({[hour]: []})
         }
         this.props.classes.forEach((_class) => {
-            const time = _class.time.split(" - ");
+            const time = _class.time.split("- ");
             const startTime = time[0].split(":");
+            const endTime = time[1].split(":");
             const startHour = startTime[0];
+            const endHour = endTime[0];
             const am_pm = _class.time[_class.time.length-1];
-            
-            this.setState({[Number(startHour) + (am_pm === "a" ? 0 : 12)] : [_class]})
+            this.setState({[Number(startHour) + (am_pm === "p" && endHour >= startHour ? 12 : 0)] : [_class]})
         })
     }
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Hour from "./Hour/"
 import Day from "./Day/"
 
 export const START_HOUR = 6;
@@ -9,7 +8,8 @@ export const HEADER_COLOR = "#0063A4";
 export const TIME_COLOR = "#FFD202";
 export const CELL_COLOR = "#eee";
 
-/*{
+const CLASS_SCHEDULE = 
+{
     "COMPSCI 143B": {
         "YearTerm": "2017-92",
         "code": "34150",
@@ -18,7 +18,7 @@ export const CELL_COLOR = "#eee";
         "instructor": "BIC, L.",
         "location": "BS3 1200",
         "num": "143B",
-        "time": "12:30- 1:50p",
+        "time": "1:00- 1:50p",
         "title": "PROJ IN OPERATING SYS"
     },
     "COMPSCI 161": {
@@ -32,11 +32,20 @@ export const CELL_COLOR = "#eee";
         "time": "3:00- 3:50p",
         "title": "DES&ANALYS OF ALGOR",
         "DIS": {
-            ...
+            "COMPSCI 161L": {
+                "YearTerm": "2017-92",
+                "code": "34190",
+                "days": "Fr",
+                "dept": "COMPSCI",
+                "instructor": "DILLENCOURT, M.",
+                "location": "SSLH 100",
+                "num": "161L",
+                "time": "4:00- 4:50p",
+                "title": "DES&ANALYS OF ALGOR LAB",
+            }
         }
-    },
-    ...
-}*/
+    }
+};
 
 //This component will receive an object that holds all the classes
 //that a student is currently taking/plan to 
@@ -55,17 +64,37 @@ class Calendar extends Component {
     }
 
     componentWillMount() {
-        this.state.classes.Monday.push({
-            dept: "COMPSCI",
-            num: "161",
-            time: "7:00 - 8:50p",
-            location: "BS3 1200"
-        })
-        /*this.state.classes.Monday.push({
-            dept: "COMPSCI",
-            num: "132",
-            time: "8:00 - 9:00p",
-        })*/
+        this.populateCalendar(CLASS_SCHEDULE);
+    }
+    
+    retrieveRandomColor() {
+        let colors = ["#20b2aa", "#cd5c5c", "#ba55d3", "#4169e1", "#ff6347", "#32cd32"]
+        return colors[Math.floor(Math.random()*colors.length)];
+    }
+
+    populateCalendar(classes, color) {
+        Object.keys(classes).forEach((key) => {  
+            const days = classes[key].days.split(" ");
+            classes[key]["color"] = color ? color : this.retrieveRandomColor();
+            days.forEach((day) => {
+                if (day === "Mo") {
+                    this.state.classes.Monday.push(classes[key]);
+                } else if (day === "Tu") {
+                    this.state.classes.Tuesday.push(classes[key]);
+                } else if (day === "We") {
+                    this.state.classes.Wednesday.push(classes[key]);
+                } else if (day === "Th") {
+                    this.state.classes.Thursday.push(classes[key]);
+                } else if (day === "Fr") {
+                    this.state.classes.Friday.push(classes[key]);
+                } else {
+                    console.log("An error has occurred with the days!");
+                }
+            }) 
+            if (classes[key]["DIS"]) {
+                this.populateCalendar(classes[key]["DIS"], classes[key]["color"]);
+            }
+        });
     }
 
     renderHourHeaders() {
@@ -126,7 +155,7 @@ const timeContainer = {
 const timeCell = {
     backgroundColor: TIME_COLOR, 
     //border:"1px solid black", 
-    borderStyle: "dotted",
+    borderStyle: "solid",
     borderWidth: 1.3,
     borderColor: "black",
     borderLeft: 0, 
