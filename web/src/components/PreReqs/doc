@@ -1,0 +1,57 @@
+# PreReqs
+
+The PreReqs component is a component that displays the prereqs of a course as well as wether or not the provided
+list of courses taken satisfies the prereqs. Currently prereqs are viewed in "sections" so if a course's prereqs are as follows:
+(A1 or A2 or A3) and (B1) and (C1 or C2) there are three sections, the As, Bs and Cs. It can be viewed that only 1 course in each section has
+to have been taken in order for that entire section to be satisfied, for example a student can take any one of the A classes to satisfy that
+entire section. The PreReqs component displays the Prerequisites title along with a red/green tag depending on if all the sections are satisfied
+and then right below has s columns where s is the number of sections and each column has c rows where c is the number of courses in that section. 
+Along with the course names there will be a green checkmark or red 'X' which represents whether or not that course has been taken, so in order
+for the prereqs to be met, there has to be at least one green checkmark in every column. 
+
+## Props
+- prereqs {[[string]]}
+A 2D array of course names, where each index in the main array represents a section and each array within that index represents the courses
+in that section. So a prereq that looks like this: (A1 or A2 or A3) and (B1) and (C1 or C2) would look like:
+[
+    ['A1','A2','A3'],
+    ['B1'],
+    ['C1','C2']
+]
+
+- coursesTaken {object}
+The courses a student has taken as an object where the keys are the course's names. This would usually just be the student's completedCourses 
+assigned to their inProgress courses.
+
+## Example
+let prereqs = [
+    [
+        "A1",
+        "A2",
+        "A3"
+    ],
+    [
+        'B1'
+    ],
+    [
+        'C1',
+        'C2'
+    ]
+];
+ 
+let coursesTaken = {
+    'A3': true,
+    'C1': true
+}
+
+return (
+    <PreReqs prereqs={prereqs} coursesTaken={coursesTaken} />
+);
+
+This will display something along the lines of:
+
+Prerequisites (Not Satisfied)
+
+|A1|X|  |B1|X|  |C1|✔|
+|A2|X|          |C2|X|
+|A3|✔|
