@@ -5,8 +5,8 @@ class GradeDistribution extends Component {
         let tbody = this.props.grades.map((offering, i) => {
             let total = offering.F + offering.D + offering.C + offering.B + offering.A;
             return <tr key={i}>
-                {offering.instructor.id !== undefined ?
-                    <td><a target="_blank" href={`http://www.ratemyprofessors.com/ShowRatings.jsp?tid=${offering.instructor.id}`}>{offering.instructor.name}</a></td>
+                {offering.instructor.rmp !== undefined ?
+                    <td><a target="_blank" href={`http://www.ratemyprofessors.com/ShowRatings.jsp?tid=${offering.instructor.rmp.id}`}>{offering.instructor.name} [{Number(offering.instructor.rmp.rating).toFixed(1)}]</a></td>
                     :
                     <td>{offering.instructor.name}</td>
                 }
@@ -20,22 +20,27 @@ class GradeDistribution extends Component {
         });
 
         return (
-            <table className="table is-bordered is-striped is-hoverable">
-                <thead>
-                    <tr>
-                        <th>Instructor</th>
-                        <th>A</th>
-                        <th>B</th>
-                        <th>C</th>
-                        <th>D</th>
-                        <th>F</th>
-                        <th># Grades</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {tbody}
-                </tbody>
-            </table>
+            <div>
+                <div className="content">
+                    <h3>Grade Distributions</h3>
+                </div>
+                <table className="table is-bordered is-striped is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>Instructor</th>
+                            <th>A</th>
+                            <th>B</th>
+                            <th>C</th>
+                            <th>D</th>
+                            <th>F</th>
+                            <th># Grades</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {tbody}
+                    </tbody>
+                </table>
+            </div>
         )
     }
 }
