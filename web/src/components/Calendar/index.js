@@ -3,8 +3,7 @@ import Hour from "./Hour/"
 import Day from "./Day/"
 
 export const START_HOUR = 6;
-export const END_HOUR = 9;
-export const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+export const END_HOUR = 22;
 export const TABLE_WIDTH_PERCENTAGE = 50;
 
 /*{
@@ -53,20 +52,24 @@ class Calendar extends Component {
     }
 
     componentWillMount() {
-        /*this.state.classes.Monday.push({
+        this.state.classes.Monday.push({
             dept: "COMPSCI",
             num: "161",
-            startHour: 7,
-            startMinute: 0,
-            endHour: 8,
-            endMinute: 0
+            time: "7:00 - 8:00p",
+        })
+        /*this.state.classes.Monday.push({
+            dept: "COMPSCI",
+            num: "132",
+            time: "8:00 - 9:00p",
         })*/
     }
 
     renderHourHeaders() {
         let hourSlots = [];
         for (let hour = START_HOUR; hour <= END_HOUR; hour++) {
-            hourSlots.push((<div className="column" style={timeCell}>{hour <= 12 ? hour : hour - 12}{hour >= 12 ? "PM" : "AM"}</div>));
+            hourSlots.push((<div className="column" key={hour} 
+                style={timeCell}>{hour <= 12 ? hour : hour - 12}{hour >= 12 ? "PM" : "AM"}</div>
+            ));
         }
         return hourSlots;
     }
@@ -83,14 +86,14 @@ class Calendar extends Component {
                     <div className="column">Fri</div>
                 </div>     
                 <div className="columns is-mobile" style={timeContainer}>
-                    <div style={{display:"flex", flexDirection: "column"}}>
+                    <div style={{display:"flex", flexDirection: "column", width: `${TABLE_WIDTH_PERCENTAGE}%`}}>
                         {this.renderHourHeaders()}
                     </div>
-                    <Day day="Monday" classes={this.state.classes.Monday}/>
-                    <Day day="Tuesday" classes={this.state.classes.Tuesday}/>
-                    <Day day="Wednesday" classes={this.state.classes.Wednesday}/>
-                    <Day day="Thursday" classes={this.state.classes.Thursday}/>
-                    <Day day="Friday" classes={this.state.classes.Friday}/>
+                    <Day classes={this.state.classes.Monday}/>
+                    <Day classes={this.state.classes.Tuesday}/>
+                    <Day classes={this.state.classes.Wednesday}/>
+                    <Day classes={this.state.classes.Thursday}/>
+                    <Day classes={this.state.classes.Friday}/>
                 </div>
             </div>
         )

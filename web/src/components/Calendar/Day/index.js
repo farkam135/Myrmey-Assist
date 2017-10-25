@@ -3,12 +3,29 @@ import Hour from "../Hour/"
 import {START_HOUR, END_HOUR, TABLE_WIDTH_PERCENTAGE} from "../";
 
 class Day extends Component {
+    componentWillMount() {
+        for (let hour = START_HOUR; hour <= END_HOUR; hour++) {
+            this.setState({[hour]: []})
+        }
+        this.props.classes.forEach((_class) => {
+            const time = _class.time.split(" - ");
+            const startTime = time[0].split(":");
+            //const endTime = time[1].split(":");
 
-    renderHourSlots() {
+            const startHour = startTime[0];
+            //const startMinute = startTime[1];
+            //const endHour = endTime[0];
+            //const endMinute = endTime[1];
+            const am_pm = _class.time[_class.time.length-1];
+            this.setState({[Number(startHour) + (am_pm === "a" ? 0 : 12)] : [_class]})
+        })
+    }
+
+    renderHourCells() {
         let rows = [];
         for (let hour = START_HOUR; hour <= END_HOUR; hour++) {
             rows.push(
-                <Hour day={this.props.day} classes={this.props.classes}/>
+                <Hour key={hour} classes={this.state[hour]}/>
             )
         }
         return rows;
@@ -17,7 +34,7 @@ class Day extends Component {
     render() {
         return (
             <div style={{width:`${TABLE_WIDTH_PERCENTAGE}%`}}>
-                {this.renderHourSlots()}
+                {this.renderHourCells()}
             </div>
         )
     }
