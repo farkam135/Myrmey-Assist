@@ -1,0 +1,57 @@
+# CourseOfferings
+
+This component shows the offerings and only the offerings of a course, this does NOT show the course name or tags.
+That is why it is generally used in a context where the course is known like in the CourseDetails component or CourseResults.
+
+## Props
+- offerings {[object]}
+An array where each index is a course objects, the object should contain the following keys: [Code, Type, Sec, Units, Instructor, Time, Place, 
+Final, Max, Enr, WL, Req, Rstr, Textbooks, Web, Status].
+
+- addPlannedCourse {function(object)}
+A function that is called when a user wants to add a course offering to their planned list, it will be passed the course object as a parameter.
+
+## Example
+let offerings =[
+    {
+        "Code": "34020",
+        "Type": "Lec",
+        "Sec": "A",
+        "Units": "4",
+        "Instructor": [
+            {
+                "name": "HAYES, W.",
+                "rmp": {
+                    "id": 919115,
+                    "rating": 2.4
+                }
+            },
+            {
+                "name": "STAHLHEBER, S."
+            }
+        ],
+        "Time": "TuTh 2:00- 3:20p",
+        "Place": {
+            "value": "PSCB 140",
+            "href": "http://www.classrooms.uci.edu/GAC/PSCB140.html"
+        },
+        "Max": "75",
+        "Enr": "51",
+        "WL": "n/a",
+        "Req": "179",
+        "Rstr": "A",
+        "Textbooks": {
+            "value": "Bookstore",
+            "href": "http://uci.bncollege.com"
+        },
+        "Web": {
+            "value": "Web",
+            "href": "http://www.ics.uci.edu/~wayne/courses/cs115/"
+        },
+        "Status": "OPEN"
+    }
+]
+
+return (
+    <CourseOfferings offerings={offerings} addPlannedCourse={(offering) => {console.log(offering)}} />
+);
