@@ -1,0 +1,101 @@
+# SearchResults
+
+This component displays the result of a WebSoc search. Passing the results of the UCI-API searchSchedule into the searchResults prop 
+for this component creates an output similar to that of UCI's own WebSoc, each course is rendered through the CourseResults component
+and that component passes the course's offerings to the CourseOfferings component where users can then add a course to their planned courses
+list.
+
+## Props
+- searchResults {[object]}
+The search results returned by searchSchedule, should be an array of CourseResults objects {dept,num, name, offerings}
+
+- addPlannedCourse {function(object)}
+A function that is called when a user wants to add a course offering to their planned list, it will be passed the course object as a parameter.
+
+## Example
+let searchResults = [
+    {
+        "dept": "COMPSCI",
+        "num": "115",
+        "name": "COMPUTER SIMULATION",
+        "offerings": [
+            {
+                "Code": "34020",
+                "Type": "Lec",
+                "Sec": "A",
+                "Units": "4",
+                "Instructor": [
+                    {
+                        "name": "HAYES, W.",
+                        "rmp": {
+                            "id": 919115,
+                            "rating": 2.4
+                        }
+                    },
+                    {
+                        "name": "STAHLHEBER, S."
+                    }
+                ],
+                "Time": "TuTh 2:00- 3:20p",
+                "Place": {
+                    "value": "PSCB 140",
+                    "href": "http://www.classrooms.uci.edu/GAC/PSCB140.html"
+                },
+                "Max": "75",
+                "Enr": "51",
+                "WL": "n/a",
+                "Req": "179",
+                "Rstr": "A",
+                "Textbooks": {
+                    "value": "Bookstore",
+                    "href": "http://uci.bncollege.com"
+                },
+                "Web": {
+                    "value": "Web",
+                    "href": "http://www.ics.uci.edu/~wayne/courses/cs115/"
+                },
+                "Status": "OPEN"
+            }
+        ]
+    },
+    {
+        "dept": "COMPSCI",
+        "num": "121",
+        "name": "INFRM RETRVL",
+        "offerings": [
+            {
+                "Code": "34100",
+                "Type": "Lec",
+                "Sec": "A",
+                "Units": "4",
+                "Instructor": [
+                    {
+                        "name": "Gago, M."
+                    }
+                ],
+                "Time": "TuTh 2:00- 3:20p",
+                "Place": {
+                    "value": "PSCB 140",
+                    "href": "http://www.classrooms.uci.edu/GAC/PSCB140.html"
+                },
+                "Max": "75",
+                "Enr": "75",
+                "WL": "8/10",
+                "Req": "179",
+                "Rstr": "A",
+                "Textbooks": {
+                    "value": "Bookstore",
+                    "href": "http://uci.bncollege.com"
+                },
+                "Web": {
+                    "value": "Web",
+                    "href": "http://www.ics.uci.edu/~wayne/courses/cs115/"
+                },
+                "Status": "Waitl"
+            }
+        ]
+    }]
+
+return (
+    <SearchResults searchResults={searchResults} addPlannedCourse={(course) => { console.log(course) }} />
+);
