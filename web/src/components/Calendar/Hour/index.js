@@ -5,7 +5,12 @@ const CELL_HEIGHT_PX = 66;
 const BORDER_WIDTH = 1.3;
 
 class Hour extends Component {
-    
+    constructor(props) {
+        super(props);
+        this.state = {
+            hover: false
+        }
+    }
     renderClasses() {
         let classes = [];
         this.props.classes.forEach((_class, index) => {
@@ -23,7 +28,9 @@ class Hour extends Component {
             let bottom = (minuteDiff * CELL_HEIGHT_PX) + top - CELL_HEIGHT_PX;//570 - 420 = 150
             bottom = minuteDiff > 60 ? (BORDER_WIDTH * Math.floor(minuteDiff)) * -1 : bottom * -1
             classes.push(
-                <div style={Object.assign({}, classContainer, {backgroundColor: _class.color, top: top, bottom: bottom})} key={index}>
+                <div style={Object.assign({}, classContainer, {backgroundColor: _class.color, top: top, bottom: bottom}, this.state.hover && {transform: 'scale(1.6)',
+                WebkitTransform: 'scale(1.6)', zIndex: 2, borderColor: "#FFD202"})} 
+                    onMouseOver={()=>this.setState({hover: true})} onMouseOut={()=>this.setState({hover: false})} key={index}>
                     <div style={font}>
                         {`${_class.time}`}<br/>
                         {`${_class.dept} ${_class.num}`}<br/>
@@ -48,7 +55,6 @@ class Hour extends Component {
 const hourContainer = {
     position: "relative", 
     overflow: "visible", 
-    //border:"1px solid black", 
     borderStyle: "solid",
     borderWidth: BORDER_WIDTH,
     borderColor: "black",
@@ -57,7 +63,6 @@ const hourContainer = {
     paddingBottom: 30,
 }
 const classContainer = {
-    //backgroundColor:"#20b2aa", 
     position: "absolute", 
     left : 0, 
     right: 0, 
@@ -65,10 +70,14 @@ const classContainer = {
     borderRadius: 10,
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    borderStyle: "groove",
+    borderWidth: 1,
+    borderColor: "black",
 }
 const font = {
-    fontSize: 11
+    fontFamily:"Tahoma",
+    fontSize: 12
 }
 
 export default Hour;

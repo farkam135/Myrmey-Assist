@@ -113,7 +113,7 @@ class Calendar extends Component {
         return (
             <div style={container}>
                 <div className="columns is-mobile" style={header}>
-                    <div className="column"></div>
+                    <div className="column is-narrow"><div style={{width: "50px"}}/></div>
                     <div className="column">Mon</div>
                     <div className="column">Tues</div>
                     <div className="column">Wed</div>
@@ -121,7 +121,7 @@ class Calendar extends Component {
                     <div className="column">Fri</div>
                 </div>     
                 <div className="columns is-mobile" style={timeContainer}>
-                    <div style={{display:"flex", flexDirection: "column", width: `${TABLE_WIDTH_PERCENTAGE-25}%`}}>
+                    <div style={{display:"flex", flexDirection: "column", width: `${TABLE_WIDTH_PERCENTAGE/2}%`}}>
                         {this.renderHourHeaders()}
                     </div>
                     <Day classes={this.state.classes.Monday}/>
@@ -137,17 +137,20 @@ class Calendar extends Component {
 
 const container = {
     width: `${TABLE_WIDTH_PERCENTAGE}%`,
+    //overflow: "auto" //uncomment this out to add scroll only on this component
 }
 const header =  {
-    fontFamily:"Verdana", 
+    fontFamily:"Tahoma", 
+    fontSize: 18,
     fontWeight: "bold", 
     backgroundColor: HEADER_COLOR, 
     color: "white", 
     textAlign: "center",
-    textDecorationLine: "underline"
+    //textDecorationLine: "underline"
 }
 const timeContainer = {
-    fontFamily:"Verdana", 
+    fontFamily:"Tahoma", 
+    fontSize: 16,
     fontWeight: "bold", 
     color: "white", 
     textAlign: "center"
