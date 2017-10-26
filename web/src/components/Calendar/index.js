@@ -7,9 +7,45 @@ export const TABLE_WIDTH_PERCENTAGE = 50;
 export const HEADER_COLOR = "#0063A4";
 export const TIME_COLOR = "#FFD202";
 export const CELL_COLOR = "#eee";
+const CLASS_COLORS = ["#deb887", "#20b2aa", "#cd5c5c", "#ba55d3", "#4169e1", "#ff6347", "#32cd32"]
 
 const CLASS_SCHEDULE = 
 {
+    "COMPSCI 116": {
+        "YearTerm": "2017-92",
+        "code": "34190",
+        "days": "Tu Th",
+        "dept": "COMPSCI",
+        "instructor": "DILLENCOURT, M.",
+        "location": "SSLH 100",
+        "num": "116",
+        "time": "10:00- 11:50a",
+        "title": "COMP VISION",
+        "DIS": {
+            "COMPSCI 116": {
+                "YearTerm": "2017-92",
+                "code": "34190",
+                "days": "Fr",
+                "dept": "COMPSCI",
+                "instructor": "DILLENCOURT, M.",
+                "location": "SSLH 100",
+                "num": "116",
+                "time": "6:00- 6:50a",
+                "title": "COMP VISION",
+            }
+        }
+    },
+    "COMPSCI 121": {
+        "YearTerm": "2017-92",
+        "code": "34150",
+        "days": "Mo We Fr",
+        "dept": "COMPSCI",
+        "instructor": "BIC, L.",
+        "location": "BS3 1200",
+        "num": "121",
+        "time": "9:00- 10:50p",
+        "title": "SEARCH RETRIEVAL"
+    },
     "COMPSCI 143B": {
         "YearTerm": "2017-92",
         "code": "34150",
@@ -32,14 +68,14 @@ const CLASS_SCHEDULE =
         "time": "3:00- 3:50p",
         "title": "DES&ANALYS OF ALGOR",
         "DIS": {
-            "COMPSCI 161L": {
+            "COMPSCI 161": {
                 "YearTerm": "2017-92",
                 "code": "34190",
                 "days": "Fr",
                 "dept": "COMPSCI",
                 "instructor": "DILLENCOURT, M.",
                 "location": "SSLH 100",
-                "num": "161L",
+                "num": "161",
                 "time": "4:00- 4:50p",
                 "title": "DES&ANALYS OF ALGOR LAB",
             }
@@ -60,22 +96,25 @@ class Calendar extends Component {
                 Thursday: [],
                 Friday: []
             },
+            colorIndex: 0
         }
     }
 
     componentWillMount() {
+        for (let i = CLASS_COLORS.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            let temp = CLASS_COLORS[i];
+            CLASS_COLORS[i] = CLASS_COLORS[j];
+            CLASS_COLORS[j] = temp;
+        }
+
         this.populateCalendar(CLASS_SCHEDULE);
-    }
-    
-    retrieveRandomColor() {
-        let colors = ["#20b2aa", "#cd5c5c", "#ba55d3", "#4169e1", "#ff6347", "#32cd32"]
-        return colors[Math.floor(Math.random()*colors.length)];
     }
 
     populateCalendar(classes, color) {
         Object.keys(classes).forEach((key) => {  
             const days = classes[key].days.split(" ");
-            classes[key]["color"] = color ? color : this.retrieveRandomColor();
+            classes[key]["color"] = color ? color : CLASS_COLORS[this.state.colorIndex++];
             days.forEach((day) => {
                 if (day === "Mo") {
                     this.state.classes.Monday.push(classes[key]);
@@ -146,6 +185,9 @@ const header =  {
     backgroundColor: HEADER_COLOR, 
     color: "white", 
     textAlign: "center",
+    borderStyle: "solid",
+    borderWidth: 3,
+    borderColor: "black",
     //textDecorationLine: "underline"
 }
 const timeContainer = {
