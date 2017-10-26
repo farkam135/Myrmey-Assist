@@ -104,6 +104,26 @@ function getCourseDetails(courseName, res) {
         })
 }
 
+function searchSchedule(search, res) {
+    UCI.SOC.searchSchedule(search)
+        .then((results) => {
+            //We have the results go through and modify the instructors to add their ratemyprofessor object
+            results.forEach((course) => {
+                course.offerings.forEach((offering) => {
+                    offering.Instructor = offering.Instructor.map((instructor) => {
+                        let rmp = UCI.PROFS.getProfessor(instructor);
+                        return {
+                            name: instructor,
+                            rmp
+                        }
+                    })
+                })
+            });
+
+            res.send(results);
+        });
+}
+
 app.post('/api/login', (req, res) => {
     console.log(`[LOGIN REQUEST]`);
     if (req.body.ucinetid_auth) {
@@ -133,6 +153,16 @@ app.get('/api/getCourseDetails', (req, res) => {
     }
 
     getCourseDetails(req.query.course, res);
+});
+
+app.post('/api/searchSchedule', (req, res) => {
+    console.log(`[searchSchedule REQUEST]`);
+    if (!req.body.InstrName && !req.body.CourseCodes && !req.body.Dept && !req.body.Breadth) {
+        res.send('ERROR: You must specify an Instructor, Course Code range, Department, or Breadth category.');
+        return;
+    }
+
+    searchSchedule(req.body, res);
 });
 
 UCI.SOC.init()
