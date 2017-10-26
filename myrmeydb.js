@@ -83,11 +83,13 @@ function getGrades(search) {
 
   if (search !== undefined) {
     //We have a search object so add a WHERE clause, loop through the search object and add the selectors to the query
-    query += ' WHERE';
+    query += ' WHERE ';
+    selectors = [];
     Object.keys(search).forEach((col, i) => {
-      query += ` ${col}=$${i + 1}`; //We add the values to the selectorValues so for the query set the value to $index
+      selectors.push(`${col}=$${i + 1}`); //We add the values to the selectorValues so for the query set the value to $index
       selectorValues.push(search[col]);
     });
+    query += selectors.join(' AND ');
   }
 
   return pool.query(query, selectorValues)

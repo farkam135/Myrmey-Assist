@@ -1,5 +1,4 @@
-![Myrmey the Anteater](https://image.ibb.co/mOvUkm/rsz_myrmey.png)
-# Myrmey Assist
+# Myrmey Assist ![Myrmey the Anteater](http://image.ibb.co/kaDmrR/Myrmey_2.png)
 An all in one UCI SOC
 ## How To Run
 ### Database Setup

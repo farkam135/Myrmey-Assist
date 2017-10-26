@@ -1,0 +1,31 @@
+# PreReqsSection
+
+The PreReqsSection component is a sub-component of PreReqs the main purpose of this component is to display one specific section of prereqs.
+So if the main PreReqs component gets the following prereqs (A1 or A2 or A3) and (B1) and (C1 or C2) this component will only render one column
+be it A1,A2,A3 or B1 or C1,C2. The component puts the course names and whether or not they are satisfied in a table where each row is a course 
+along with a check if it was satisfied or not.
+
+## Props
+- section {[object]]}
+An array of objects with 2 keys: name and satisfied.
+
+## Example
+let section = [
+    {
+        name: 'C1',
+        satisfied: true 
+    },
+    {
+        name: 'C2',
+        satisfied: false
+    }
+]
+
+return (
+    <PreReqsSection section={section} />
+);
+
+This will return something along the lines of:
+
+|C1|✔|
+|C2|X|
