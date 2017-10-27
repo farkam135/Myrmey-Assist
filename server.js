@@ -69,9 +69,15 @@ function getCourseDetails(courseName, res) {
         num: courseDeptNum[2]
     }
 
-    Promise.all([UCI.SOC.getCourseDetails([courseName]), MYRMEYDB.getGrades(dbSelector)])
+    let searchScheduleParams = {
+        Dept: courseDeptNum[1],
+        CourseNum: courseDeptNum[2]
+    }
+
+    Promise.all([UCI.SOC.getCourseDetails([courseName]), MYRMEYDB.getGrades(dbSelector), searchSchedule(searchScheduleParams)])
         .then((response) => {
             let course = response[0][courseName];
+            course.offerings = response[2][0].offerings;
             let courseGrades = {};
 
             //Go through the results of the db grade lookup for the course, organizing the grades by professor.
@@ -105,7 +111,7 @@ function getCourseDetails(courseName, res) {
 }
 
 function searchSchedule(search, res) {
-    UCI.SOC.searchSchedule(search)
+    return UCI.SOC.searchSchedule(search)
         .then((results) => {
             //We have the results go through and modify the instructors to add their ratemyprofessor object
             results.forEach((course) => {
@@ -120,7 +126,12 @@ function searchSchedule(search, res) {
                 })
             });
 
-            res.send(results);
+            if (res) {
+                res.send(results);
+                return Promise.resolve();
+            }
+
+            return results;
         });
 }
 
