@@ -5,7 +5,7 @@
 -- Dumped from database version 9.6.5
 -- Dumped by pg_dump version 9.6.5
 
--- Started on 2017-10-25 22:16:36 PDT
+-- Started on 2017-10-30 00:14:31 PDT
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,16 +18,16 @@ SET row_security = off;
 
 --
 -- TOC entry 1 (class 3079 OID 12425)
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2172 (class 0 OID 0)
+-- TOC entry 2178 (class 0 OID 0)
 -- Dependencies: 1
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -41,7 +41,7 @@ SET default_with_oids = false;
 
 --
 -- TOC entry 185 (class 1259 OID 16413)
--- Name: completed_courses; Type: TABLE; Schema: public; Owner: -
+-- Name: completed_courses; Type: TABLE; Schema: public; Owner: myrmey
 --
 
 CREATE TABLE completed_courses (
@@ -50,9 +50,11 @@ CREATE TABLE completed_courses (
 );
 
 
+ALTER TABLE completed_courses OWNER TO myrmey;
+
 --
 -- TOC entry 186 (class 1259 OID 16416)
--- Name: grades; Type: TABLE; Schema: public; Owner: -
+-- Name: grades; Type: TABLE; Schema: public; Owner: myrmey
 --
 
 CREATE TABLE grades (
@@ -65,9 +67,11 @@ CREATE TABLE grades (
 );
 
 
+ALTER TABLE grades OWNER TO myrmey;
+
 --
 -- TOC entry 187 (class 1259 OID 32770)
--- Name: planned_courses; Type: TABLE; Schema: public; Owner: -
+-- Name: planned_courses; Type: TABLE; Schema: public; Owner: myrmey
 --
 
 CREATE TABLE planned_courses (
@@ -76,9 +80,24 @@ CREATE TABLE planned_courses (
 );
 
 
+ALTER TABLE planned_courses OWNER TO myrmey;
+
 --
--- TOC entry 2044 (class 2606 OID 16420)
--- Name: completed_courses completed_courses_pk; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 188 (class 1259 OID 40962)
+-- Name: watchlist; Type: TABLE; Schema: public; Owner: myrmey
+--
+
+CREATE TABLE watchlist (
+    email character varying(255) NOT NULL,
+    code character varying(8) NOT NULL
+);
+
+
+ALTER TABLE watchlist OWNER TO myrmey;
+
+--
+-- TOC entry 2048 (class 2606 OID 16420)
+-- Name: completed_courses completed_courses_pk; Type: CONSTRAINT; Schema: public; Owner: myrmey
 --
 
 ALTER TABLE ONLY completed_courses
@@ -86,8 +105,8 @@ ALTER TABLE ONLY completed_courses
 
 
 --
--- TOC entry 2046 (class 2606 OID 16422)
--- Name: grades grades_pk; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2050 (class 2606 OID 16422)
+-- Name: grades grades_pk; Type: CONSTRAINT; Schema: public; Owner: myrmey
 --
 
 ALTER TABLE ONLY grades
@@ -95,15 +114,24 @@ ALTER TABLE ONLY grades
 
 
 --
--- TOC entry 2048 (class 2606 OID 32774)
--- Name: planned_courses planned_courses_pk; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2052 (class 2606 OID 32774)
+-- Name: planned_courses planned_courses_pk; Type: CONSTRAINT; Schema: public; Owner: myrmey
 --
 
 ALTER TABLE ONLY planned_courses
     ADD CONSTRAINT planned_courses_pk PRIMARY KEY (id);
 
 
--- Completed on 2017-10-25 22:16:36 PDT
+--
+-- TOC entry 2054 (class 2606 OID 40968)
+-- Name: watchlist watchlist_pk; Type: CONSTRAINT; Schema: public; Owner: myrmey
+--
+
+ALTER TABLE ONLY watchlist
+    ADD CONSTRAINT watchlist_pk PRIMARY KEY (email, code);
+
+
+-- Completed on 2017-10-30 00:14:31 PDT
 
 --
 -- PostgreSQL database dump complete
