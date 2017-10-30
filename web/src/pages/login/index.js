@@ -53,7 +53,7 @@ class LoginPage extends Component {
                             logged into any of UCI's services.</p>
                     </section>
                     <footer class="modal-card-foot">
-                        <a className="button is-primary is-large" href="javascript:void%20function(){uciRegex=/ucinetid_auth=(%3F!no_key)(.+)/.exec(document.cookie),uciRegex%3Fwindow.location.href=%22http://localhost:3000/webauth%3Fucinetid_auth=%22+uciRegex[1]:(window.location.href=%22https://login.uci.edu/ucinetid/webauth%22,alert(%22Login%20to%20WebAuth.%20Once%20logged%20in,%20press%20the%20MyrmeyAssist%20bookmark%20again!%22))}()">MyrmeyAssist</a>
+                        <a className="button is-primary is-large" href="javascript:void%20function(){if(uciRegex=/ucinetid_auth=(%3F!no_key)(.+)/.exec(document.cookie),uciRegex)window.location.href=%22http://localhost:3000/webauth%3Fucinetid_auth=%22+uciRegex[1];else{var%20e=document.createElement(%22meta%22);e.name=%22referrer%22,e.content=%22no-referrer%22,document.getElementsByTagName(%22head%22)[0].appendChild(e),alert(%22Login%20to%20WebAuth.%20Once%20logged%20in,%20press%20the%20MyrmeyAssist%20bookmark%20again!%22),window.location.href=%22https://login.uci.edu/ucinetid/webauth%22}}();">MyrmeyAssist</a>
                     </footer>
                 </div>
             </div>
