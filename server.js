@@ -6,6 +6,12 @@ const crypto = require('crypto');
 const bodyParser = require('body-parser');
 const config = require('./config.json');
 
+const services = {}
+if (config.watchlist.enable) {
+    services.watchlist = require('./watchlist.js');
+    services.watchlist.init(UCI.SOC, MYRMEYDB, config.watchlist.gmail_auth, config.watchlist.interval);
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
