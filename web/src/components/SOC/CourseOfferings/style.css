@@ -1,0 +1,7 @@
+td {
+    white-space: pre
+}
+
+.clickable {
+    cursor: pointer;
+}

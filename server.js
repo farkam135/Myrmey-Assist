@@ -6,6 +6,12 @@ const crypto = require('crypto');
 const bodyParser = require('body-parser');
 const config = require('./config.json');
 
+const services = {}
+if (config.watchlist.enable) {
+    services.watchlist = require('./watchlist.js');
+    services.watchlist.init(UCI.SOC, MYRMEYDB, config.watchlist.gmail_auth, config.watchlist.interval);
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -69,9 +75,15 @@ function getCourseDetails(courseName, res) {
         num: courseDeptNum[2]
     }
 
-    Promise.all([UCI.SOC.getCourseDetails([courseName]), MYRMEYDB.getGrades(dbSelector)])
+    let searchScheduleParams = {
+        Dept: courseDeptNum[1],
+        CourseNum: courseDeptNum[2]
+    }
+
+    Promise.all([UCI.SOC.getCourseDetails([courseName]), MYRMEYDB.getGrades(dbSelector), searchSchedule(searchScheduleParams)])
         .then((response) => {
             let course = response[0][courseName];
+            course.offerings = response[2][0].offerings;
             let courseGrades = {};
 
             //Go through the results of the db grade lookup for the course, organizing the grades by professor.
@@ -104,6 +116,31 @@ function getCourseDetails(courseName, res) {
         })
 }
 
+function searchSchedule(search, res) {
+    return UCI.SOC.searchSchedule(search)
+        .then((results) => {
+            //We have the results go through and modify the instructors to add their ratemyprofessor object
+            results.forEach((course) => {
+                course.offerings.forEach((offering) => {
+                    offering.Instructor = offering.Instructor.map((instructor) => {
+                        let rmp = UCI.PROFS.getProfessor(instructor);
+                        return {
+                            name: instructor,
+                            rmp
+                        }
+                    })
+                })
+            });
+
+            if (res) {
+                res.send(results);
+                return Promise.resolve();
+            }
+
+            return results;
+        });
+}
+
 app.post('/api/login', (req, res) => {
     console.log(`[LOGIN REQUEST]`);
     if (req.body.ucinetid_auth) {
@@ -133,6 +170,16 @@ app.get('/api/getCourseDetails', (req, res) => {
     }
 
     getCourseDetails(req.query.course, res);
+});
+
+app.post('/api/searchSchedule', (req, res) => {
+    console.log(`[searchSchedule REQUEST]`);
+    if (!req.body.InstrName && !req.body.CourseCodes && !req.body.Dept && !req.body.Breadth) {
+        res.send('ERROR: You must specify an Instructor, Course Code range, Department, or Breadth category.');
+        return;
+    }
+
+    searchSchedule(req.body, res);
 });
 
 UCI.SOC.init()

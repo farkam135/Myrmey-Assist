@@ -6,5 +6,13 @@
         "password": "",
         "database": "myrmey",
         "port": "5432"
+    },
+    "watchlist": {
+        "enable": false,
+        "interval": 60,
+        "gmail_auth": {
+            "user": "",
+            "pass": ""
+        }
     }
 }
