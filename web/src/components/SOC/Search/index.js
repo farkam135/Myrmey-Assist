@@ -492,7 +492,7 @@ class Search extends Component {
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <button className={"button is-primary is-medium" + (this.props.isSearching ? ' is-loading' : '')} onClick={this.props.onSearch}>Search</button>
+                                <button className={"button is-primary is-medium" + (this.props.isSearching ? ' is-loading' : '')} onClick={() => {this.props.onSearch(this.state)}}>Search</button>
                             </div>
                         </div>
                     </div>
