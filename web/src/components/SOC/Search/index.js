@@ -35,13 +35,13 @@ class Search extends Component {
             <div>
                 {/* General Education (Breadth) */}
                 <div className="field is-horizontal">
-                    <div className="field-label is-normal">
+                    <div className="field-label is-small">
                         <label className="label">General Education (Breadth)</label>
                     </div>
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <div className="select">
+                                <div className="select is-small">
                                     <select name="Breadth" value={this.state.Breadth} onChange={this.changeSearch}>
                                         <option value="ANY">Do not filter for General Education (GE) categories</option>
                                         <option value="GE-1A">GE Ia: Lower Division Writing</option>
@@ -77,13 +77,13 @@ class Search extends Component {
 
                 {/* Department Name */}
                 <div className="field is-horizontal">
-                    <div className="field-label is-normal">
+                    <div className="field-label is-small">
                         <label className="label">Department Name</label>
                     </div>
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <div className="select">
+                                <div className="select is-small">
                                     <select name="Dept" value={this.state.Dept} onChange={this.changeSearch}>
                                         <option value="ALL">Include All Departments</option>
                                         <option value="AC ENG">AC ENG . . . . . .Academic English and ESL (started 2012 Fall)</option>
@@ -235,13 +235,13 @@ class Search extends Component {
 
                 {/* Course Number or Range */}
                 <div className="field is-horizontal">
-                    <div className="field-label is-normal">
+                    <div className="field-label is-small">
                         <label className="label">Course Number or Range</label>
                     </div>
                     <div className="field-body">
-                        <div className="field">
+                        <div className="field is-grouped">
                             <div className="control">
-                                <input name="CourseNum" className="input" type="text" value={this.state.CourseNum} onChange={this.changeSearch} />
+                                <input name="CourseNum" className="input is-small" type="text" value={this.state.CourseNum} onChange={this.changeSearch} />
                             </div>
                             <p className="help">H2A, 5, 10-20 (multiple entries ok)</p>
                         </div>
@@ -250,13 +250,13 @@ class Search extends Component {
 
                 {/* Course Level */}
                 <div className="field is-horizontal">
-                    <div className="field-label is-normal">
+                    <div className="field-label is-small">
                         <label className="label">Course Level</label>
                     </div>
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <div className="select">
+                                <div className="select is-small">
                                     <select name="Division" value={this.state.Division} onChange={this.changeSearch}>
                                         <option value="ANY">Any course division</option>
                                         <option value="0xx">Lower Division only</option>
@@ -271,13 +271,13 @@ class Search extends Component {
 
                 {/* Course Code or Range */}
                 <div className="field is-horizontal">
-                    <div className="field-label is-normal">
+                    <div className="field-label is-small">
                         <label className="label">Course Code or Range</label>
                     </div>
                     <div className="field-body">
-                        <div className="field">
+                        <div className="field is-grouped">
                             <div className="control">
-                                <input name="CourseCodes" className="input" type="text" value={this.state.CourseCodes} onChange={this.changeSearch} />
+                                <input name="CourseCodes" className="input is-small" type="text" value={this.state.CourseCodes} onChange={this.changeSearch} />
                             </div>
                             <p className="help">14200, 29000-29100</p>
                         </div>
@@ -286,13 +286,13 @@ class Search extends Component {
 
                 {/* Instructor */}
                 <div className="field is-horizontal">
-                    <div className="field-label is-normal">
+                    <div className="field-label is-small">
                         <label className="label">Instructor</label>
                     </div>
                     <div className="field-body">
-                        <div className="field">
+                        <div className="field is-grouped">
                             <div className="control">
-                                <input name="InstrName" className="input" type="text" value={this.state.InstrName} onChange={this.changeSearch} />
+                                <input name="InstrName" className="input is-small" type="text" value={this.state.InstrName} onChange={this.changeSearch} />
                             </div>
                             <p className="help">Smith</p>
                         </div>
@@ -301,13 +301,13 @@ class Search extends Component {
 
                 {/* Course Title Contains */}
                 <div className="field is-horizontal">
-                    <div className="field-label is-normal">
+                    <div className="field-label is-small">
                         <label className="label">Course Title Contains</label>
                     </div>
                     <div className="field-body">
-                        <div className="field">
+                        <div className="field is-grouped">
                             <div className="control">
-                                <input name="CourseTitle" className="input" type="text" value={this.state.CourseTitle} onChange={this.changeSearch} />
+                                <input name="CourseTitle" className="input is-small" type="text" value={this.state.CourseTitle} onChange={this.changeSearch} />
                             </div>
                             <p className="help">protein</p>
                         </div>
@@ -316,13 +316,13 @@ class Search extends Component {
 
                 {/* Course Type */}
                 <div className="field is-horizontal">
-                    <div className="field-label is-normal">
+                    <div className="field-label is-small">
                         <label className="label">Course Type</label>
                     </div>
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <div className="select">
+                                <div className="select is-small">
                                     <select name="ClassType" value={this.state.ClassType} onChange={this.changeSearch}>
                                         <option value="ALL">All Course Types</option>
                                         <option value="ACT">Activity</option>
@@ -346,13 +346,13 @@ class Search extends Component {
 
                 {/* Units */}
                 <div className="field is-horizontal">
-                    <div className="field-label is-normal">
+                    <div className="field-label is-small">
                         <label className="label">Units</label>
                     </div>
                     <div className="field-body">
-                        <div className="field">
+                        <div className="field is-grouped">
                             <div className="control">
-                                <input name="Units" className="input" type="text" value={this.state.Units} onChange={this.changeSearch} />
+                                <input name="Units" className="input is-small" type="text" value={this.state.Units} onChange={this.changeSearch} />
                             </div>
                             <p className="help">4,5, or VAR</p>
                         </div>
@@ -361,13 +361,13 @@ class Search extends Component {
 
                 {/* Days */}
                 <div className="field is-horizontal">
-                    <div className="field-label is-normal">
+                    <div className="field-label is-small">
                         <label className="label">Days</label>
                     </div>
                     <div className="field-body">
-                        <div className="field">
+                        <div className="field is-grouped">
                             <div className="control">
-                                <input name="Days" className="input" type="text" value={this.state.Days} onChange={this.changeSearch} />
+                                <input name="Days" className="input is-small" type="text" value={this.state.Days} onChange={this.changeSearch} />
                             </div>
                             <p className="help">MWF,TuTh,W (courses will include all days specified)</p>
                         </div>
@@ -376,13 +376,13 @@ class Search extends Component {
 
                 {/* Starting Time After */}
                 <div className="field is-horizontal">
-                    <div className="field-label is-normal">
+                    <div className="field-label is-small">
                         <label className="label">Starting Time After</label>
                     </div>
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <div className="select">
+                                <div className="select is-small">
                                     <select name="StartTime" value={this.state.StartTime} onChange={this.changeSearch}>
                                         <option></option>
                                         <option>1:00am</option>
@@ -417,13 +417,13 @@ class Search extends Component {
 
                 {/* Ending Time After */}
                 <div className="field is-horizontal">
-                    <div className="field-label is-normal">
+                    <div className="field-label is-small">
                         <label className="label">Ending Time After</label>
                     </div>
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <div className="select">
+                                <div className="select is-small">
                                     <select name="EndTime" value={this.state.EndTime} onChange={this.changeSearch}>
                                         <option></option>
                                         <option>2:00am</option>
@@ -457,13 +457,13 @@ class Search extends Component {
 
                 {/* Courses Full Option */}
                 <div className="field is-horizontal">
-                    <div className="field-label is-normal">
+                    <div className="field-label is-small">
                         <label className="label">Courses Full Option</label>
                     </div>
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <div className="select">
+                                <div className="select is-small">
                                     <select name="FullCourses" value={this.state.FullCourses} onChange={this.changeSearch}>
                                         <option value="ANY"></option>
                                         <option value="SkipFullWaitlist">Include full courses if space on waitlist</option>
