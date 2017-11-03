@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './style.css';
 
 class Search extends Component {
     constructor(props) {
@@ -16,7 +17,6 @@ class Search extends Component {
             Days: '',
             StartTime: '',
             EndTime: '',
-            MaxCap: '',
             CourseNum: '',
             FullCourses: "ANY",
             Bldg: '',
@@ -243,6 +243,7 @@ class Search extends Component {
                             <div className="control">
                                 <input name="CourseNum" className="input" type="text" value={this.state.CourseNum} onChange={this.changeSearch} />
                             </div>
+                            <p className="help">H2A, 5, 10-20 (multiple entries ok)</p>
                         </div>
                     </div>
                 </div>
@@ -278,6 +279,7 @@ class Search extends Component {
                             <div className="control">
                                 <input name="CourseCodes" className="input" type="text" value={this.state.CourseCodes} onChange={this.changeSearch} />
                             </div>
+                            <p className="help">14200, 29000-29100</p>
                         </div>
                     </div>
                 </div>
@@ -292,6 +294,7 @@ class Search extends Component {
                             <div className="control">
                                 <input name="InstrName" className="input" type="text" value={this.state.InstrName} onChange={this.changeSearch} />
                             </div>
+                            <p className="help">Smith</p>
                         </div>
                     </div>
                 </div>
@@ -306,6 +309,7 @@ class Search extends Component {
                             <div className="control">
                                 <input name="CourseTitle" className="input" type="text" value={this.state.CourseTitle} onChange={this.changeSearch} />
                             </div>
+                            <p className="help">protein</p>
                         </div>
                     </div>
                 </div>
@@ -350,6 +354,7 @@ class Search extends Component {
                             <div className="control">
                                 <input name="Units" className="input" type="text" value={this.state.Units} onChange={this.changeSearch} />
                             </div>
+                            <p className="help">4,5, or VAR</p>
                         </div>
                     </div>
                 </div>
@@ -364,6 +369,7 @@ class Search extends Component {
                             <div className="control">
                                 <input name="Days" className="input" type="text" value={this.state.Days} onChange={this.changeSearch} />
                             </div>
+                            <p className="help">MWF,TuTh,W (courses will include all days specified)</p>
                         </div>
                     </div>
                 </div>
@@ -449,20 +455,6 @@ class Search extends Component {
                     </div>
                 </div>
 
-                {/* Maximum Capacity */}
-                <div className="field is-horizontal">
-                    <div className="field-label is-normal">
-                        <label className="label">Maximum Capacity</label>
-                    </div>
-                    <div className="field-body">
-                        <div className="field">
-                            <div className="control">
-                                <input name="MaxCap" className="input" type="text" value={this.state.MaxCap} onChange={this.changeSearch} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 {/* Courses Full Option */}
                 <div className="field is-horizontal">
                     <div className="field-label is-normal">
@@ -492,7 +484,7 @@ class Search extends Component {
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <button className={"button is-primary is-medium" + (this.props.isSearching ? ' is-loading' : '')} onClick={() => {this.props.onSearch(this.state)}}>Search</button>
+                                <button className={"button is-primary is-medium" + (this.props.isSearching ? ' is-loading' : '')} onClick={() => { this.props.onSearch(this.state) }}>Search</button>
                             </div>
                         </div>
                     </div>
