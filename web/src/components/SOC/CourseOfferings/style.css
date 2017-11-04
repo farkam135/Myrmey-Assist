@@ -1,7 +1,19 @@
+.table {
+    margin-bottom: 0 !important;
+}
+
 td {
     white-space: pre
 }
 
 .clickable {
     cursor: pointer;
+}
+
+.table-header {
+    background-color: #E7E7E7;
+}
+
+a {
+    color: #0065a3 !important;
 }

@@ -2,37 +2,9 @@ import React, { Component } from 'react';
 import './style.css';
 
 class Search extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            Breadth: "ANY",
-            Dept: "ALL",
-            CourseNum: '',
-            Division: 'ANY',
-            CourseCodes: '',
-            InstrName: '',
-            CourseTitle: '',
-            ClassType: 'ALL',
-            Units: '',
-            Days: '',
-            StartTime: '',
-            EndTime: '',
-            CourseNum: '',
-            FullCourses: "ANY",
-            Bldg: '',
-            Room: ''
-        }
-    }
-
-    changeSearch = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
     render() {
         return (
-            <div>
+            <div className="box">
                 {/* General Education (Breadth) */}
                 <div className="field is-horizontal">
                     <div className="field-label is-small">
@@ -42,7 +14,7 @@ class Search extends Component {
                         <div className="field">
                             <div className="control">
                                 <div className="select is-small">
-                                    <select name="Breadth" value={this.state.Breadth} onChange={this.changeSearch}>
+                                    <select name="Breadth" value={this.props.searchParams.Breadth} onChange={this.props.onChange}>
                                         <option value="ANY">Do not filter for General Education (GE) categories</option>
                                         <option value="GE-1A">GE Ia: Lower Division Writing</option>
                                         <option value="GE-1B">GE Ib: Upper Division Writing</option>
@@ -84,7 +56,7 @@ class Search extends Component {
                         <div className="field">
                             <div className="control">
                                 <div className="select is-small">
-                                    <select name="Dept" value={this.state.Dept} onChange={this.changeSearch}>
+                                    <select name="Dept" value={this.props.searchParams.Dept} onChange={this.props.onChange}>
                                         <option value="ALL">Include All Departments</option>
                                         <option value="AC ENG">AC ENG . . . . . .Academic English and ESL (started 2012 Fall)</option>
                                         <option value="AFAM">AFAM . . . . . . . African American Studies</option>
@@ -241,7 +213,7 @@ class Search extends Component {
                     <div className="field-body">
                         <div className="field is-grouped">
                             <div className="control">
-                                <input name="CourseNum" className="input is-small" type="text" value={this.state.CourseNum} onChange={this.changeSearch} />
+                                <input name="CourseNum" className="input is-small" type="text" value={this.props.searchParams.CourseNum} onChange={this.props.onChange} />
                             </div>
                             <p className="help">H2A, 5, 10-20 (multiple entries ok)</p>
                         </div>
@@ -257,7 +229,7 @@ class Search extends Component {
                         <div className="field">
                             <div className="control">
                                 <div className="select is-small">
-                                    <select name="Division" value={this.state.Division} onChange={this.changeSearch}>
+                                    <select name="Division" value={this.props.searchParams.Division} onChange={this.props.onChange}>
                                         <option value="ANY">Any course division</option>
                                         <option value="0xx">Lower Division only</option>
                                         <option value="1xx">Upper Division only</option>
@@ -277,7 +249,7 @@ class Search extends Component {
                     <div className="field-body">
                         <div className="field is-grouped">
                             <div className="control">
-                                <input name="CourseCodes" className="input is-small" type="text" value={this.state.CourseCodes} onChange={this.changeSearch} />
+                                <input name="CourseCodes" className="input is-small" type="text" value={this.props.searchParams.CourseCodes} onChange={this.props.onChange} />
                             </div>
                             <p className="help">14200, 29000-29100</p>
                         </div>
@@ -292,7 +264,7 @@ class Search extends Component {
                     <div className="field-body">
                         <div className="field is-grouped">
                             <div className="control">
-                                <input name="InstrName" className="input is-small" type="text" value={this.state.InstrName} onChange={this.changeSearch} />
+                                <input name="InstrName" className="input is-small" type="text" value={this.props.searchParams.InstrName} onChange={this.props.onChange} />
                             </div>
                             <p className="help">Smith</p>
                         </div>
@@ -307,7 +279,7 @@ class Search extends Component {
                     <div className="field-body">
                         <div className="field is-grouped">
                             <div className="control">
-                                <input name="CourseTitle" className="input is-small" type="text" value={this.state.CourseTitle} onChange={this.changeSearch} />
+                                <input name="CourseTitle" className="input is-small" type="text" value={this.props.searchParams.CourseTitle} onChange={this.props.onChange} />
                             </div>
                             <p className="help">protein</p>
                         </div>
@@ -323,7 +295,7 @@ class Search extends Component {
                         <div className="field">
                             <div className="control">
                                 <div className="select is-small">
-                                    <select name="ClassType" value={this.state.ClassType} onChange={this.changeSearch}>
+                                    <select name="ClassType" value={this.props.searchParams.ClassType} onChange={this.props.onChange}>
                                         <option value="ALL">All Course Types</option>
                                         <option value="ACT">Activity</option>
                                         <option value="COL">Colloquium</option>
@@ -352,7 +324,7 @@ class Search extends Component {
                     <div className="field-body">
                         <div className="field is-grouped">
                             <div className="control">
-                                <input name="Units" className="input is-small" type="text" value={this.state.Units} onChange={this.changeSearch} />
+                                <input name="Units" className="input is-small" type="text" value={this.props.searchParams.Units} onChange={this.props.onChange} />
                             </div>
                             <p className="help">4,5, or VAR</p>
                         </div>
@@ -367,7 +339,7 @@ class Search extends Component {
                     <div className="field-body">
                         <div className="field is-grouped">
                             <div className="control">
-                                <input name="Days" className="input is-small" type="text" value={this.state.Days} onChange={this.changeSearch} />
+                                <input name="Days" className="input is-small" type="text" value={this.props.searchParams.Days} onChange={this.props.onChange} />
                             </div>
                             <p className="help">MWF,TuTh,W (courses will include all days specified)</p>
                         </div>
@@ -383,7 +355,7 @@ class Search extends Component {
                         <div className="field">
                             <div className="control">
                                 <div className="select is-small">
-                                    <select name="StartTime" value={this.state.StartTime} onChange={this.changeSearch}>
+                                    <select name="StartTime" value={this.props.searchParams.StartTime} onChange={this.props.onChange}>
                                         <option></option>
                                         <option>1:00am</option>
                                         <option>2:00am</option>
@@ -424,7 +396,7 @@ class Search extends Component {
                         <div className="field">
                             <div className="control">
                                 <div className="select is-small">
-                                    <select name="EndTime" value={this.state.EndTime} onChange={this.changeSearch}>
+                                    <select name="EndTime" value={this.props.searchParams.EndTime} onChange={this.props.onChange}>
                                         <option></option>
                                         <option>2:00am</option>
                                         <option>3:00am</option>
@@ -464,7 +436,7 @@ class Search extends Component {
                         <div className="field">
                             <div className="control">
                                 <div className="select is-small">
-                                    <select name="FullCourses" value={this.state.FullCourses} onChange={this.changeSearch}>
+                                    <select name="FullCourses" value={this.props.searchParams.FullCourses} onChange={this.props.onChange}>
                                         <option value="ANY"></option>
                                         <option value="SkipFullWaitlist">Include full courses if space on waitlist</option>
                                         <option value="SkipFull">Skip courses that are full</option>
@@ -484,7 +456,7 @@ class Search extends Component {
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <button className={"button is-primary is-medium" + (this.props.isSearching ? ' is-loading' : '')} onClick={() => { this.props.onSearch(this.state) }}>Search</button>
+                                <button className={"button is-primary is-medium" + (this.props.isSearching ? ' is-loading' : '')} onClick={this.props.onSearch}>Search</button>
                             </div>
                         </div>
                     </div>
