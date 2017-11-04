@@ -9,6 +9,9 @@ along with a check if it was satisfied or not.
 - section {[object]]}
 An array of objects with 2 keys: name and satisfied.
 
+-openCourseDetails {function(string)}
+A function that can be executed to open the details of a prereq course.
+
 ## Example
 let section = [
     {

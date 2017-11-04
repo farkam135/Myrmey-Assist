@@ -11,6 +11,9 @@ A course object that includes fullName, description, offerings, dept, num, name,
 - addPlannedCourse {function(object)}
 A function that is called when a user wants to add a course offering to their planned list, it will be passed the course object as a parameter.
 
+- openCourseDetails {function(string)}
+A function that is passed on to the prereqs component so if users don't satisfy their prereqs they can check out what courses they can take.
+
 ## Example
 let course = {
             "fullName": "Introduction to Data Management",

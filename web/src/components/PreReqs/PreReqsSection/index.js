@@ -5,7 +5,7 @@ class PreReqsSection extends Component {
         console.log(this.props.section);
         let coursesHtml = this.props.section.map((course) => {
             return <tr>
-                <td>{course.name}</td>
+                <td><a onClick={() => {this.props.openCourseDetails(course.name)}}>{course.name}</a></td>
                 {course.satisfied ?
                     <td><span className="icon has-text-success"><i className="fa fa-check"></i></span></td>
                     :

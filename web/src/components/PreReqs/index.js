@@ -37,7 +37,7 @@ class PreReqs extends Component {
 
         let sectionColumns = prereqs.sections.map((section) => {
             return <div className="column is-narrow">
-                <PreReqsSection section={section} />
+                <PreReqsSection section={section} openCourseDetails={this.props.openCourseDetails} />
             </div>
         });
 

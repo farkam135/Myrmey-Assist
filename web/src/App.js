@@ -49,7 +49,8 @@ class App extends Component {
         openCourseDetails: this.openCourseDetails
       },
       COURSE_DETAILS: {
-        addPlannedCourse: this.addPlannedCourse
+        addPlannedCourse: this.addPlannedCourse,
+        openCourseDetails: this.openCourseDetails
       },
       history: [],
       currScreen: "SOC"
