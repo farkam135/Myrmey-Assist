@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
 import Inspector from '../../components/Inspector';
+import './style.css';
+
 class HomePage extends Component {
     render() {
         return (
-            <section className="hero is-primary is-fullheight">
-                <div className="hero-body">
-                    <div className="columns">
-                        <div className="column">
-                            <div className="button is-fullwidth">
-                                ayy
+            <div className="columns is-gapless">
+                <div className="column">
+                    <div className="box">
+                        ayy
                             </div>
-                        </div>
-                        <div className="column is-narrow">
-                            <Inspector screen={this.props.screen} />
-                        </div>
-                    </div>
                 </div>
-                <div className="hero-foot">
+                <div className="column">
+                    <Inspector user={this.props.user} screen={this.props.screen} />
                 </div>
-            </section>
+            </div>
         );
     }
 }

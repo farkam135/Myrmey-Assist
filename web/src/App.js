@@ -4,9 +4,14 @@ import update from 'immutability-helper';
 import LoginPage from './pages/login';
 import HomePage from './pages/home';
 import Search from './components/SOC/Search';
+import SearchResults from './components/SOC/SearchResults';
+import CourseDetails from './components/CourseDetails';
 
-const screens = {
-  soc: Search
+
+const SCREENS = {
+  SOC: Search,
+  SEARCH_RESULTS: SearchResults,
+  COURSE_DETAILS: CourseDetails
 }
 
 class App extends Component {
@@ -17,7 +22,7 @@ class App extends Component {
         loggingIn: false,
         error: undefined
       },
-      soc: {
+      SOC: {
         searchParams: {
           Breadth: "ANY",
           Dept: "ALL",
@@ -39,8 +44,15 @@ class App extends Component {
         onChange: this.changeSOCParams,
         isSearching: false
       },
+      SEARCH_RESULTS: {
+        addPlannedCourse: this.addPlannedCourse,
+        openCourseDetails: this.openCourseDetails
+      },
+      COURSE_DETAILS: {
+        addPlannedCourse: this.addPlannedCourse
+      },
       history: [],
-      currScreen: "soc"
+      currScreen: "SOC"
     }
 
   }
@@ -87,17 +99,20 @@ class App extends Component {
       })
   }
 
-  pushScreen = (screen) => {
+  pushScreen = (screen, data) => {
+    let props = update(this.state[screen],{$merge: data});
     if (this.state.currScreen !== null) {
       this.setState({
         history: this.state.history.concat([this.state.currScreen]),
-        currScreen: screen
+        currScreen: screen,
+        [screen]: props
       });
       return;
     }
 
     this.setState({
-      currScreen: screen
+      currScreen: screen,
+      [screen]: props
     });
   }
 
@@ -109,27 +124,77 @@ class App extends Component {
   }
 
   changeSOCParams = (e) => {
-    let newSearchParams = update(this.state.soc.searchParams,{$merge: {[e.target.name]: e.target.value}});
-    let newSoc = update(this.state.soc, {$merge: {searchParams: newSearchParams}});
+    let newSearchParams = update(this.state.SOC.searchParams, { $merge: { [e.target.name]: e.target.value } });
+    let newSoc = update(this.state.SOC, { $merge: { searchParams: newSearchParams } });
 
     this.setState({
-      soc: newSoc
+      SOC: newSoc
     })
   }
 
   searchSOC = () => {
-    let newSoc = update(this.state.soc, {$merge: {isSearching: true}});
+    let socSearching = update(this.state.SOC, { $merge: { isSearching: true } });
+    let socIdle = update(this.state.SOC, { $merge: { isSearching: false } });
     this.setState({
-      soc: newSoc
+      SOC: socSearching
     });
 
     //Add actual search
+    fetch('/api/searchSchedule', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state.SOC.searchParams)
+    }).then((res) => res.json())
+      .then((res) => {
+        if (!res.success) {
+          this.setState({
+            SOC: socIdle
+          });
+          return;
+        }
 
+        this.pushScreen('SEARCH_RESULTS', {searchResults: res.data});
+      })
+      .catch((err) => {
+        this.setState({
+          SOC: socIdle
+        });
+      })
+  }
+
+  openCourseDetails = (courseName) => {
+    let courseDetailsLoading = update(this.state.COURSE_DETAILS, {$merge: { isLoading: true }});
+    let courseDetailsIdle = update(this.state.COURSE_DETAILS, { $merge: { isLoading: false }});
+
+    this.setState({
+      COURSE_DETAILS: courseDetailsLoading
+    });
+
+    fetch(`/api/getCourseDetails?course=${courseName}`, {
+      method: 'GET'
+    }).then((res) => res.json())
+      .then((res) => {
+        if(!res.success){
+          this.setState({
+            COURSE_DETAILS: courseDetailsIdle
+          });
+          return;
+        }
+
+        this.pushScreen('COURSE_DETAILS', {course: res.data})
+      })
+  }
+
+  addPlannedCourse = (course) => {
+    //TODO
+    console.log(course);
   }
 
   render() {
     let screen = {
-      component: screens[this.state.currScreen],
+      component: SCREENS[this.state.currScreen],
       data: this.state[this.state.currScreen]
     }
 
@@ -138,7 +203,7 @@ class App extends Component {
         {!this.state.user ?
           <LoginPage login={this.login} loginStatus={this.state.loginStatus} />
           :
-          <HomePage screen={screen} />
+          <HomePage user={this.state.user} screen={screen} />
         }
       </div>
     );

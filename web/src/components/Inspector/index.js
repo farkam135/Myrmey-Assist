@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import './style.css';
 
 class Inspector extends Component {
     render() {
         //let CurrScreen = this.props.screens[this.props.screens.length - 1];
         return (
-            <div className="box">
+            <div> 
                 {this.props.currScreen !== null &&
-                    <this.props.screen.component {...this.props.screen.data} />
+                    <this.props.screen.component user={this.props.user} {...this.props.screen.data} />
                 }
             </div>
         );

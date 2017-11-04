@@ -1,0 +1,8 @@
+.columns {
+    flex: 1;
+}
+
+.box {
+    height: 100vh;
+    overflow-y: auto;
+}

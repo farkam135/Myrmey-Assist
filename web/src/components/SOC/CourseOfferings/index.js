@@ -45,9 +45,9 @@ class CourseOfferings extends Component {
             </tr>
         })
         return (
-            <table className="table is-striped is-bordered is-fullwidth">
+            <table className="table is-striped is-bordered is-size-7 is-fullwidth">
                 <thead>
-                    <tr>
+                    <tr className="table-header">
                         <th>Code</th>
                         <th>Type</th>
                         <th>Sec</th>
