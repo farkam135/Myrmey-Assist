@@ -12,6 +12,9 @@ class HomePage extends Component {
                             </div>
                 </div>
                 <div className="column">
+                    {this.props.popScreen && 
+                        <button className="button is-primary is-fullwidth no-radius" onClick={this.props.popScreen}>Back</button>
+                    }
                     <Inspector user={this.props.user} screen={this.props.screen} />
                 </div>
             </div>

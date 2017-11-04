@@ -100,26 +100,26 @@ class App extends Component {
       })
   }
 
-  pushScreen = (screen, data) => {
-    let props = update(this.state[screen],{$merge: data});
-    if (this.state.currScreen !== null) {
-      this.setState({
-        history: this.state.history.concat([this.state.currScreen]),
-        currScreen: screen,
-        [screen]: props
-      });
-      return;
+  pushScreen = (screen, data, historyProps) => {
+    let props = update(this.state[screen], { $merge: data });
+
+    //If we don't provide any props to save to the history, just use the current props of the screen.
+    if(!historyProps){
+      historyProps = this.state[this.state.currScreen];
     }
 
     this.setState({
+      history: this.state.history.concat([{ screen: this.state.currScreen, props: historyProps }]),
       currScreen: screen,
       [screen]: props
     });
   }
 
   popScreen = () => {
+    let prevScreen = this.state.history[this.state.history.length - 1];
     this.setState({
-      currScreen: this.state.history[this.state.screens.length - 1],
+      currScreen: prevScreen.screen,
+      [prevScreen.screen]: prevScreen.props,
       history: this.state.history.slice(0, -1)
     })
   }
@@ -156,7 +156,7 @@ class App extends Component {
           return;
         }
 
-        this.pushScreen('SEARCH_RESULTS', {searchResults: res.data});
+        this.pushScreen('SEARCH_RESULTS', { searchResults: res.data }, socIdle);
       })
       .catch((err) => {
         this.setState({
@@ -166,8 +166,10 @@ class App extends Component {
   }
 
   openCourseDetails = (courseName) => {
-    let courseDetailsLoading = update(this.state.COURSE_DETAILS, {$merge: { isLoading: true }});
-    let courseDetailsIdle = update(this.state.COURSE_DETAILS, { $merge: { isLoading: false }});
+    courseName = encodeURIComponent(courseName);
+
+    let courseDetailsLoading = update(this.state.COURSE_DETAILS, { $merge: { isLoading: true } });
+    let courseDetailsIdle = update(this.state.COURSE_DETAILS, { $merge: { isLoading: false } });
 
     this.setState({
       COURSE_DETAILS: courseDetailsLoading
@@ -177,14 +179,14 @@ class App extends Component {
       method: 'GET'
     }).then((res) => res.json())
       .then((res) => {
-        if(!res.success){
+        if (!res.success) {
           this.setState({
             COURSE_DETAILS: courseDetailsIdle
           });
           return;
         }
 
-        this.pushScreen('COURSE_DETAILS', {course: res.data})
+        this.pushScreen('COURSE_DETAILS', { course: res.data })
       })
   }
 
@@ -204,7 +206,7 @@ class App extends Component {
         {!this.state.user ?
           <LoginPage login={this.login} loginStatus={this.state.loginStatus} />
           :
-          <HomePage user={this.state.user} screen={screen} />
+          <HomePage user={this.state.user} screen={screen} popScreen={this.state.history.length > 0 ? this.popScreen : undefined} />
         }
       </div>
     );
