@@ -112,7 +112,7 @@ function getCourseDetails(courseName, res) {
             Object.keys(courseGrades).forEach((instructor) => {
                 course.gradeDistributions.push(courseGrades[instructor]);
             });
-            res.send(course);
+            res.send({success: true, data: course});
         })
 }
 
@@ -133,7 +133,10 @@ function searchSchedule(search, res) {
             });
 
             if (res) {
-                res.send(results);
+                res.send({
+                    success: true,
+                    data: results
+                });
                 return Promise.resolve();
             }
 
@@ -165,7 +168,7 @@ app.post('/api/login', (req, res) => {
 app.get('/api/getCourseDetails', (req, res) => {
     console.log(`[getCourseDetails REQUEST]`);
     if (!req.query.course) {
-        res.send('ERROR: Please provide a course.');
+        res.send({success: false, error:'ERROR: Please provide a course.'});
         return;
     }
 
@@ -174,8 +177,12 @@ app.get('/api/getCourseDetails', (req, res) => {
 
 app.post('/api/searchSchedule', (req, res) => {
     console.log(`[searchSchedule REQUEST]`);
-    if (!req.body.InstrName && !req.body.CourseCodes && !req.body.Dept && !req.body.Breadth) {
-        res.send('ERROR: You must specify an Instructor, Course Code range, Department, or Breadth category.');
+    console.log(req.body);
+    if (req.body.InstrName === '' && req.body.CourseCodes === '' && req.body.Dept === 'ALL' && req.body.Breadth === 'ANY') {
+        res.send({
+            success: false,
+            error: 'ERROR: You must specify an Instructor, Course Code range, Department, or Breadth category.'
+        });
         return;
     }
 
@@ -184,6 +191,7 @@ app.post('/api/searchSchedule', (req, res) => {
 
 UCI.SOC.init()
     .then(() => {
+        //return Promise.resolve();
         return Promise.all([UCI.PROFS.refreshProfs(), UCI.SOC.loadDept('COMPSCI')]);
     })
     .then(() => {
