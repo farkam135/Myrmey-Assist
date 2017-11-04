@@ -4,3 +4,7 @@
 @import './bulma-custom/derived-variables.sass';
 @import '../node_modules/bulma/bulma.sass';
 @import './bulma-custom/divider.sass';
+
+html {
+    overflow-y: hidden;
+}
