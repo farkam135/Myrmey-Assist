@@ -5,3 +5,7 @@
 .clickable {
     cursor: pointer;
 }
+
+.no-margin {
+    margin-bottom: 0 !important;
+}

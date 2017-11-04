@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 
 class PreReqsSection extends Component {
     render() {
-        console.log(this.props.section);
-        let coursesHtml = this.props.section.map((course) => {
-            return <tr>
+        let coursesHtml = this.props.section.map((course,i) => {
+            return <tr key={i}>
                 <td><a onClick={() => {this.props.openCourseDetails(course.name)}}>{course.name}</a></td>
                 {course.satisfied ?
                     <td><span className="icon has-text-success"><i className="fa fa-check"></i></span></td>
