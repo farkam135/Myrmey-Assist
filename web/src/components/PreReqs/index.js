@@ -45,9 +45,9 @@ class PreReqs extends Component {
             <div>
                 <div className="content">
                     {prereqs.satisfied ?
-                        <h3>Prerequisites <span className="tag is-medium is-success">Satisfied</span></h3>
+                        <h4>You Have <span className="tag is-medium is-success">Satisfied</span> All Required Sections</h4>
                         :
-                        <h3>Prerequisites <span className="tag is-medium is-danger">Not Satisfied</span></h3>
+                        <h4>You Have <span className="tag is-medium is-danger">Not Satisfied</span> All Required Sections</h4>
                     }
                 </div>
                 <div className="columns">

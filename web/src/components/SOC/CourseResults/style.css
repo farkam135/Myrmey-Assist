@@ -1,3 +1,7 @@
 .panel-heading {
     background-color: #fff0ff !important;
 }
+
+.clickable {
+    cursor: pointer;
+}
