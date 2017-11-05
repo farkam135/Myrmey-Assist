@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MessageBox from '../../MessageBox';
 import './style.css';
 
 class Search extends Component {
@@ -461,6 +462,9 @@ class Search extends Component {
                         </div>
                     </div>
                 </div>
+
+                {/* Error Message */}
+                {this.props.error && <MessageBox type="is-danger" message={this.props.error} />}
             </div>
         );
     }

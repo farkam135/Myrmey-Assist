@@ -11,6 +11,9 @@ searches can be made unless isSearching is false.
 - onSearch {function(object)}
 A function that is called when a search is initiated, it will be passed the search object as a parameter.
 
+- error {string}
+If there was an error this prop will be a string otherwise undefined. Should display in a messagebox.
+
 ## Example
 return (
     <Search isSearching={false} onSearch={(search) =>{console.log(search)}} />

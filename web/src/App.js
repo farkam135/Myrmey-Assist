@@ -134,8 +134,8 @@ class App extends Component {
   }
 
   searchSOC = () => {
-    let socSearching = update(this.state.SOC, { $merge: { isSearching: true } });
-    let socIdle = update(this.state.SOC, { $merge: { isSearching: false } });
+    let socSearching = update(this.state.SOC, { $merge: { isSearching: true, error: undefined } });
+    let socIdle = update(this.state.SOC, { $merge: { isSearching: false, error: undefined } });
     this.setState({
       SOC: socSearching
     });
@@ -151,7 +151,7 @@ class App extends Component {
       .then((res) => {
         if (!res.success) {
           this.setState({
-            SOC: socIdle
+            SOC: update(socIdle, { $merge: { error: res.error}})
           });
           return;
         }
@@ -160,7 +160,7 @@ class App extends Component {
       })
       .catch((err) => {
         this.setState({
-          SOC: socIdle
+          SOC: update(socIdle, { $merge: { error: 'An Unexpected Error Occurred.'}})
         });
       })
   }
