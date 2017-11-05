@@ -8,7 +8,7 @@ class SearchResults extends Component {
         });
 
         return (
-            <div className="box no-padding">
+            <div className="box has-back-button no-padding">
                 {courseResults}
             </div>
         )

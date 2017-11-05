@@ -2,13 +2,14 @@
     flex: 1;
 }
 
-.box {
-    height: 90vh;
+.is-full-height {
+    height: 94vh !important;
     overflow-y: auto;
 }
 
-.full-height {
-    height: 94vh !important;
+.has-back-button {
+    height: 940vh !important;
+    overflow-y: auto;
 }
 
 .no-radius {
