@@ -5,7 +5,7 @@ import './style.css';
 class Search extends Component {
     render() {
         return (
-            <div className="box">
+            <div className="box full-height">
                 {/* General Education (Breadth) */}
                 <div className="field is-horizontal">
                     <div className="field-label is-small">

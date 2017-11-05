@@ -27,7 +27,7 @@ class HomePage extends Component {
                 </nav>
                 <div className="columns is-gapless">
                     <div className="column">
-                        <div className="box">
+                        <div className="box full-height">
                             ayy
                             </div>
                     </div>

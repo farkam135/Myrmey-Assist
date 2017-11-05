@@ -3,8 +3,12 @@
 }
 
 .box {
-    height: 100vh;
+    height: 90vh;
     overflow-y: auto;
+}
+
+.full-height {
+    height: 94vh !important;
 }
 
 .no-radius {
