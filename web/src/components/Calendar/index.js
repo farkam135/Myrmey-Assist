@@ -3,10 +3,6 @@ import Day from "./Day/"
 
 export const START_HOUR = 6;
 export const END_HOUR = 23;
-export const TABLE_WIDTH_PERCENTAGE = 50;
-export const HEADER_COLOR = "#0063A4";
-export const TIME_COLOR = "#FFD202";
-export const CELL_COLOR = "#eee";
 const CLASS_COLORS = ["#deb887", "#20b2aa", "#cd5c5c", "#ba55d3", "#4169e1", "#ff6347", "#32cd32"]
 
 const CLASS_SCHEDULE = 
@@ -140,7 +136,7 @@ class Calendar extends Component {
         let hourSlots = [];
         for (let hour = START_HOUR; hour <= END_HOUR; hour++) {
             hourSlots.push((
-                <div className="column" key={hour} style={timeCell}>
+                <div className="column timeCell" key={hour}>
                     {hour <= 12 ? hour : hour - 12}{hour >= 12 ? "PM" : "AM"}
                 </div>
             ));
@@ -150,8 +146,8 @@ class Calendar extends Component {
 
     render() {
         return (
-            <div style={container}>
-                <div className="columns is-mobile" style={header}>
+            <div className="widthContainer">
+                <div className="columns is-mobile header" >
                     <div className="column is-narrow"><div style={{width: "50px"}}/></div>
                     <div className="column">Mon</div>
                     <div className="column">Tues</div>
@@ -159,8 +155,8 @@ class Calendar extends Component {
                     <div className="column">Thurs</div>
                     <div className="column">Fri</div>
                 </div>     
-                <div className="columns is-mobile" style={timeContainer}>
-                    <div style={{display:"flex", flexDirection: "column", width: `${TABLE_WIDTH_PERCENTAGE/2}%`}}>
+                <div className="columns is-mobile timeContainer">
+                    <div className="hourHeaders">
                         {this.renderHourHeaders()}
                     </div>
                     <Day classes={this.state.classes.Monday}/>
@@ -172,39 +168,6 @@ class Calendar extends Component {
             </div>
         )
     }
-}
-
-const container = {
-    width: `${TABLE_WIDTH_PERCENTAGE}%`,
-    //overflow: "auto" //uncomment this out to add scroll only on this component
-}
-const header =  {
-    fontFamily:"Tahoma", 
-    fontSize: 18,
-    fontWeight: "bold", 
-    backgroundColor: HEADER_COLOR, 
-    color: "white", 
-    textAlign: "center",
-    borderStyle: "solid",
-    borderWidth: 3,
-    borderColor: "black",
-    //textDecorationLine: "underline"
-}
-const timeContainer = {
-    fontFamily:"Tahoma", 
-    fontSize: 16,
-    fontWeight: "bold", 
-    color: "white", 
-    textAlign: "center"
-}
-const timeCell = {
-    backgroundColor: TIME_COLOR, 
-    //border:"1px solid black", 
-    borderStyle: "solid",
-    borderWidth: 1.3,
-    borderColor: "black",
-    borderLeft: 0, 
-    borderTop: 0
 }
 
 export default Calendar;

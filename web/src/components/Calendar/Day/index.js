@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Hour from "../Hour/"
 import {START_HOUR, END_HOUR, TABLE_WIDTH_PERCENTAGE} from "../";
+import "../style.css"
 
 class Day extends Component {
     componentWillMount() {
@@ -30,7 +31,7 @@ class Day extends Component {
 
     render() {
         return (
-            <div style={{width:`${TABLE_WIDTH_PERCENTAGE}%`}}>
+            <div className="hourCells">
                 {this.renderHourCells()}
             </div>
         )
