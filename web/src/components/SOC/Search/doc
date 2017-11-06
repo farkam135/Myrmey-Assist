@@ -1,0 +1,20 @@
+# Search
+
+The Search component is a component that renders a search form that resembles the WebSoc search form. The form manages its own
+state and on search runs a prop function passing in all the search parameters.
+
+## Props
+- isSearching {boolean}
+Whether or not a search is currently in progress, this will ensure the search button shows a loading sign and no further
+searches can be made unless isSearching is false.
+
+- onSearch {function(object)}
+A function that is called when a search is initiated, it will be passed the search object as a parameter.
+
+- error {string}
+If there was an error this prop will be a string otherwise undefined. Should display in a messagebox.
+
+## Example
+return (
+    <Search isSearching={false} onSearch={(search) =>{console.log(search)}} />
+)

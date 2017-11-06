@@ -50,6 +50,54 @@ function addCompletedCourse(id, courseName) {
 }
 
 /**
+ * addWatch
+ * 
+ * Adds a course code to the watchlist. When a course is on the watchlist it is monitored for opening up, once it is opened up
+ * the email associated to the course code will be notified.
+ * @param {string} email The email to be notified once the course is no longer full. 
+ * @param {string} code The course code of the course to monitor.
+ * @return {promise} A promise that resolves if success.
+ */
+function addWatch(email, code) {
+  return pool.query('INSERT INTO watchlist(email, code) VALUES ($1, $2)', [email, code]);
+}
+
+/**
+ * getWatchedCourses
+ * 
+ * Gets a list of all the course codes and all the emails watching it, these should be checked to see if they are still full or not.
+ * @return {promise} A promise that resolves to an object where the keys are the course codes and the value is an array of emails.
+ */
+function getWatchedCourses() {
+  let watchlist = {};
+  return pool.query('SELECT DISTINCT email, code FROM watchlist')
+    .then((res) => {
+      res.rows.forEach((row) => {
+        if (!watchlist[row.code]) {
+          //The course code hasn't been seen yet, initialize the array
+          watchlist[row.code] = [row.email];
+          return;
+        }
+
+        watchlist[row.code].push(row.email);
+      });
+
+      return watchlist;
+    });
+}
+
+/**
+ * deleteWatch
+ * 
+ * Deletes a course code and all the emails watching it from the watchlist, usually called after the course has opened up and the 
+ * notification was sent out, or the course no longer exists (next quarter).
+ * @param {string} code The course code to remove from the watchlist.
+ */
+function deleteWatch(code){
+  return pool.query('DELETE FROM watchlist WHERE code=$1', [code]);
+}
+
+/**
  * getCompletedCourses
  * 
  * Gets the completed courses of a hashed id.
@@ -102,3 +150,6 @@ module.exports.addGrades = addGrades;
 module.exports.getGrades = getGrades;
 module.exports.addCompletedCourse = addCompletedCourse;
 module.exports.getCompletedCourses = getCompletedCourses;
+module.exports.addWatch = addWatch;
+module.exports.getWatchedCourses = getWatchedCourses;
+module.exports.deleteWatch = deleteWatch;

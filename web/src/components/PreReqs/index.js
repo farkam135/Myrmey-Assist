@@ -7,37 +7,39 @@ class PreReqs extends Component {
             sections: []
         };
 
-        prereqs.forEach((section) => {
-            let sectionSatified = false;
-            let sectionCourses = [];
+        //If there are prereqs
+        if (prereqs) {
+            prereqs.forEach((section) => {
+                let sectionSatified = false;
+                let sectionCourses = [];
 
-            section.forEach((sectionCourse) => {
-                let courseSatisfied = coursesTaken.hasOwnProperty(sectionCourse);
-                if (courseSatisfied) {
-                    sectionSatified = true;
+                section.forEach((sectionCourse) => {
+                    let courseSatisfied = coursesTaken.hasOwnProperty(sectionCourse);
+                    if (courseSatisfied) {
+                        sectionSatified = true;
+                    }
+
+                    sectionCourses.push({
+                        name: sectionCourse,
+                        satisfied: courseSatisfied
+                    });
+                })
+
+                prereqsComplete.sections.push(sectionCourses);
+                if (!sectionSatified) {
+                    prereqsComplete.satisfied = false;
                 }
-
-                sectionCourses.push({
-                    name: sectionCourse,
-                    satisfied: courseSatisfied
-                });
             })
-
-            prereqsComplete.sections.push(sectionCourses);
-            if (!sectionSatified) {
-                prereqsComplete.satisfied = false;
-            }
-        })
-
+        }
         return prereqsComplete;
     }
 
     render() {
         let prereqs = this.getPrereqsComplete(this.props.prereqs, this.props.coursesTaken);
 
-        let sectionColumns = prereqs.sections.map((section) => {
-            return <div className="column is-narrow">
-                <PreReqsSection section={section} />
+        let sectionColumns = prereqs.sections.map((section, i) => {
+            return <div key={i} className="column is-narrow">
+                <PreReqsSection section={section} openCourseDetails={this.props.openCourseDetails} />
             </div>
         });
 
@@ -45,9 +47,9 @@ class PreReqs extends Component {
             <div>
                 <div className="content">
                     {prereqs.satisfied ?
-                        <h3>Prerequisites <span className="tag is-medium is-success">Satisfied</span></h3>
+                        <h4>You Have <span className="tag is-medium is-success">Satisfied</span> All Required Sections</h4>
                         :
-                        <h3>Prerequisites <span className="tag is-medium is-danger">Not Satisfied</span></h3>
+                        <h4>You Have <span className="tag is-medium is-danger">Not Satisfied</span> All Required Sections</h4>
                     }
                 </div>
                 <div className="columns">

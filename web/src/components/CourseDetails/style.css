@@ -1,0 +1,7 @@
+.hero.is-primary .title {
+    color: inherit !important;
+}
+
+.tabs {
+    margin-top: 1em;
+}

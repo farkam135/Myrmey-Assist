@@ -20,27 +20,22 @@ class GradeDistribution extends Component {
         });
 
         return (
-            <div>
-                <div className="content">
-                    <h3>Grade Distributions</h3>
-                </div>
-                <table className="table is-bordered is-striped is-hoverable">
-                    <thead>
-                        <tr>
-                            <th>Instructor</th>
-                            <th>A</th>
-                            <th>B</th>
-                            <th>C</th>
-                            <th>D</th>
-                            <th>F</th>
-                            <th># Grades</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tbody}
-                    </tbody>
-                </table>
-            </div>
+            <table className="table is-bordered is-striped is-hoverable">
+                <thead>
+                    <tr>
+                        <th>Instructor</th>
+                        <th>A</th>
+                        <th>B</th>
+                        <th>C</th>
+                        <th>D</th>
+                        <th>F</th>
+                        <th># Grades</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tbody}
+                </tbody>
+            </table>
         )
     }
 }

@@ -23,6 +23,9 @@ in that section. So a prereq that looks like this: (A1 or A2 or A3) and (B1) and
 The courses a student has taken as an object where the keys are the course's names. This would usually just be the student's completedCourses 
 assigned to their inProgress courses.
 
+-openCourseDetails {function(string)}
+A function that can be executed to open the details of a prereq course.
+
 ## Example
 let prereqs = [
     [

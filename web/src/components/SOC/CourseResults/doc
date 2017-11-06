@@ -1,0 +1,63 @@
+# CourseResults
+
+The CourseResults component is a component that renders a panel with the header being the course tag and name and the body being
+all the offerings of the course. This component is relatable to a course's results on the UCI WebSoc. Note however this only displays a box
+for one course and its offerings, so this component is a subcomponent of SearchResults where that component receives all the results of a search
+and uses this component to render each individual course and its offerings.
+
+## Props
+- courseResults {object}
+The course results object to render, should contain the keys: ['dept','num','name','offerings'].
+
+- addPlannedCourse {function(object)}
+A function that is called when a user wants to add a course offering to their planned list, it will be passed the course object as a parameter.
+
+## Example
+let course ={
+    "dept": "COMPSCI",
+    "num": "115",
+    "name": "COMPUTER SIMULATION",
+    "offerings": [
+        {
+            "Code": "34020",
+            "Type": "Lec",
+            "Sec": "A",
+            "Units": "4",
+            "Instructor": [
+                {
+                    "name": "HAYES, W.",
+                    "rmp": {
+                        "id": 919115,
+                        "rating": 2.4
+                    }
+                },
+                {
+                    "name": "STAHLHEBER, S."
+                }
+            ],
+            "Time": "TuTh 2:00- 3:20p",
+            "Place": {
+                "value": "PSCB 140",
+                "href": "http://www.classrooms.uci.edu/GAC/PSCB140.html"
+            },
+            "Max": "75",
+            "Enr": "51",
+            "WL": "n/a",
+            "Req": "179",
+            "Rstr": "A",
+            "Textbooks": {
+                "value": "Bookstore",
+                "href": "http://uci.bncollege.com"
+            },
+            "Web": {
+                "value": "Web",
+                "href": "http://www.ics.uci.edu/~wayne/courses/cs115/"
+            },
+            "Status": "OPEN"
+        }
+    ]
+}
+
+return (
+    <CourseResults courseResults={course} addPlannedCourse={(course) =>{ console.log(course)}} />
+)

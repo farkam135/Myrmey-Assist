@@ -1,0 +1,17 @@
+.columns {
+    flex: 1;
+}
+
+.is-full-height {
+    height: 94vh !important;
+    overflow-y: auto;
+}
+
+.has-back-button {
+    height: 90vh !important;
+    overflow-y: auto;
+}
+
+.no-radius {
+    border-radius: 0 !important;
+}

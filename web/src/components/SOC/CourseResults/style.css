@@ -1,0 +1,15 @@
+.panel-heading {
+    background-color: #fff0ff !important;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.no-margin {
+    margin-bottom: 0 !important;
+}
+
+small {
+    margin-left: 0.5em;
+}
