@@ -1,9 +1,11 @@
 const UCI = require('UCI');
 const MYRMEYDB = require('./myrmeydb.js');
-const app = require('express')();
+const express = require('express');
+const app = express();
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const bodyParser = require('body-parser');
+const path = require('path');
 const config = require('./config.json');
 
 const services = {}
@@ -16,6 +18,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+app.use(express.static(path.join(__dirname, 'web/build')));
 
 /**
  * generateMyrmeyId
@@ -195,10 +199,15 @@ app.post('/api/searchSchedule', (req, res) => {
     searchSchedule(req.body, res);
 });
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'web/build/index.html'));
+});
+
+
 UCI.SOC.init()
     .then(() => {
         //return Promise.resolve();
-        return Promise.all([UCI.PROFS.refreshProfs(), UCI.SOC.loadDept('COMPSCI')]);
+        return Promise.all([UCI.PROFS.refreshProfs(), UCI.SOC.loadAll()]);
     })
     .then(() => {
         app.listen(8080, () => {
