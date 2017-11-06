@@ -32,20 +32,20 @@ class LoginPage extends Component {
 
     loginThroughWebAuthModal = () => {
         return (
-            <div class="modal is-active">
-                <div class="modal-background"></div>
-                <div class="modal-card">
-                    <header class="modal-card-head">
-                        <p class="modal-card-title">Login Through WebAuth</p>
-                        <button class="delete" aria-label="close" onClick={() => { this.showWebAuthModal(false) }}></button>
+            <div className="modal is-active">
+                <div className="modal-background"></div>
+                <div className="modal-card">
+                    <header className="modal-card-head">
+                        <p className="modal-card-title">Login Through WebAuth</p>
+                        <button className="delete" aria-label="close" onClick={() => { this.showWebAuthModal(false) }}></button>
                     </header>
-                    <section class="modal-card-body">
+                    <section className="modal-card-body">
                         <p style={{ color: "black", marginBottom: 10 }}>Logging into MyrmeyAssist through WebAuth is easy! In order to do it you will have to drag the blue MyrmeyAssist button below
                             into your bookmarks bar and when you are ready, click it. It will redirect you to WebAuth where you will have to login.
                             Once logged in you can press the bookmark again and you will be logged into MyrmeyAssist. This will also work if you are
                             logged into any of UCI's services.</p>
                     </section>
-                    <footer class="modal-card-foot">
+                    <footer className="modal-card-foot">
                         <a className="button is-primary is-large" href="javascript:void%20function(){if(uciRegex=/ucinetid_auth=(%3F!no_key)(.+)/.exec(document.cookie),uciRegex)window.location.href=%22http://localhost:3000/webauth%3Fucinetid_auth=%22+uciRegex[1];else{var%20e=document.createElement(%22meta%22);e.name=%22referrer%22,e.content=%22no-referrer%22,document.getElementsByTagName(%22head%22)[0].appendChild(e),alert(%22Login%20to%20WebAuth.%20Once%20logged%20in,%20press%20the%20MyrmeyAssist%20bookmark%20again!%22),window.location.href=%22https://login.uci.edu/ucinetid/webauth%22}}();">MyrmeyAssist</a>
                     </footer>
                 </div>
