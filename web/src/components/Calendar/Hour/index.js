@@ -3,7 +3,6 @@ import {CELL_COLOR} from "../";
 import "../style.css"
 
 const CELL_HEIGHT_PX = 66;
-const BORDER_WIDTH = 1.3;
 
 class Hour extends Component {
     constructor(props) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Hour from "../Hour/"
-import {START_HOUR, END_HOUR, TABLE_WIDTH_PERCENTAGE} from "../";
+import {START_HOUR, END_HOUR} from "../";
 import "../style.css"
 
 class Day extends Component {

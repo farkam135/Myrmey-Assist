@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import update from 'immutability-helper';
 
-import LoginPage from './pages/login';
 import HomePage from './pages/home';
 import Search from './components/SOC/Search';
 import SearchResults from './components/SOC/SearchResults';
