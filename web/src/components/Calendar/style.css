@@ -1,0 +1,61 @@
+div.widthContainer, div.hourCells {
+    width: 50%;
+}
+
+div.columns.header {
+    font-family:Tahoma;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #0063A4; 
+    color: white;
+    text-align: center;
+    border: 3px solid black;
+}
+
+div.columns.timeContainer {
+    font-family:Tahoma;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+div.hourHeaders {
+    display:flex; 
+    flex-direction: column; 
+    width: 25%;
+}
+
+div.column.timeCell {
+    background-color: #FFD202;
+    border: 0.3px solid black;
+    border-left: 0;
+    border-top: 0;
+}
+
+div.column.hourContainer { 
+    position: relative;
+    overflow: visible;
+    border: 0.3px solid black;
+    border-left: 0px;
+    border-top: 0px;
+    padding-bottom: 30px;
+    background-color: #eee;
+}
+
+div.classContainer {
+    position: absolute; 
+    left : 0px;
+    right: 0px; 
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px groove black;
+}
+
+div.font {
+    font-family:Tahoma;
+    font-size: 12px;
+}

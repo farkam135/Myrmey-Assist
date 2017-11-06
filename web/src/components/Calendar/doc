@@ -1,0 +1,86 @@
+#Calendar
+
+The Calendar component renders five Day components (Mo-Fri), and each Day component renders (endHour - startHour) Hour components. The Hour components handle the rendering of the classes, using arithmetic to calculate the height of each class.
+
+## Props
+- classSchedule {{object}}
+An object consisting of keys where each key is an object which represents a class. Each object should contain the following keys: 
+	- time (HH:MM- HH:MMa)
+	- dept (department, i.e. COMPSCI)
+	- num (number of the class, i.e. 116)
+	- location (location of the class, i.e. SSLH 100)
+
+## Example
+<Calendar classSchedule = {{
+    "COMPSCI 116": {
+        "YearTerm": "2017-92",
+        "code": "34190",
+        "days": "Tu Th",
+        "dept": "COMPSCI",
+        "instructor": "DILLENCOURT, M.",
+        "location": "SSLH 100",
+        "num": "116",
+        "time": "10:00- 11:50a",
+        "title": "COMP VISION",
+        "DIS": {
+            "COMPSCI 116": {
+                "YearTerm": "2017-92",
+                "code": "34190",
+                "days": "Fr",
+                "dept": "COMPSCI",
+                "instructor": "DILLENCOURT, M.",
+                "location": "SSLH 100",
+                "num": "116",
+                "time": "6:00- 6:50a",
+                "title": "COMP VISION",
+            }
+        }
+    },
+    "COMPSCI 121": {
+        "YearTerm": "2017-92",
+        "code": "34150",
+        "days": "Mo We Fr",
+        "dept": "COMPSCI",
+        "instructor": "BIC, L.",
+        "location": "BS3 1200",
+        "num": "121",
+        "time": "9:00- 10:50p",
+        "title": "SEARCH RETRIEVAL"
+    },
+    "COMPSCI 143B": {
+        "YearTerm": "2017-92",
+        "code": "34150",
+        "days": "Tu Th",
+        "dept": "COMPSCI",
+        "instructor": "BIC, L.",
+        "location": "BS3 1200",
+        "num": "143B",
+        "time": "1:00- 1:50p",
+        "title": "PROJ IN OPERATING SYS"
+    },
+    "COMPSCI 161": {
+        "YearTerm": "2017-92",
+        "code": "34190",
+        "days": "Mo We Fr",
+        "dept": "COMPSCI",
+        "instructor": "DILLENCOURT, M.",
+        "location": "SSLH 100",
+        "num": "161",
+        "time": "3:00- 3:50p",
+        "title": "DES&ANALYS OF ALGOR",
+        "DIS": {
+            "COMPSCI 161": {
+                "YearTerm": "2017-92",
+                "code": "34190",
+                "days": "Fr",
+                "dept": "COMPSCI",
+                "instructor": "DILLENCOURT, M.",
+                "location": "SSLH 100",
+                "num": "161",
+                "time": "4:00- 4:50p",
+                "title": "DES&ANALYS OF ALGOR LAB",
+            }
+        }
+    }
+}}/>
+This example will render 4 classes (COMPSCI 121, COMPSCI 143B, CONSCI 161) with each class having their own unique color. Since COMPSCI 116 and COMPSCI 161 have DIS keys, they will render another class on the calendar (same color as its lecture class).
