@@ -6,20 +6,23 @@ import HomePage from './pages/home';
 import Search from './components/SOC/Search';
 import SearchResults from './components/SOC/SearchResults';
 import CourseDetails from './components/CourseDetails';
+import Login from './components/Login';
 
 
 const SCREENS = {
   SOC: Search,
   SEARCH_RESULTS: SearchResults,
-  COURSE_DETAILS: CourseDetails
+  COURSE_DETAILS: CourseDetails,
+  LOGIN: Login
 }
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loginStatus: {
+      LOGIN: {
         loggingIn: false,
+        login: this.login,
         error: undefined
       },
       SOC: {
@@ -58,14 +61,29 @@ class App extends Component {
 
   }
 
-  login = (credentials) => {
-    this.setState({
-      loginStatus: {
-        loggingIn: true
-      }
-    });
+  componentDidMount = () => {
+    if (global.location.search.includes('?ucinetid_auth=')) {
+      this.login({ ucinetid_auth: global.location.search.replace('?ucinetid_auth=', '') });
+    }
+  }
 
-    console.log(credentials);
+  openLogin = () => {
+    this.pushScreen('LOGIN', { loggingIn: false, error: undefined });
+  }
+
+  login = (credentials) => {
+    if (this.state.currScreen !== 'LOGIN') {
+      this.pushScreen('LOGIN', { loggingIn: true });
+    }
+    else{
+      this.setState({
+        LOGIN: {
+          loggingIn: true,
+          login: this.login
+        }
+      })
+    }
+
     fetch('/api/login', {
       method: 'POST',
       headers: {
@@ -76,24 +94,26 @@ class App extends Component {
       .then((res) => {
         if (!res.success) {
           this.setState({
-            loginStatus: {
+            LOGIN: {
               loggingIn: false,
+              login: this.login,
               error: res.error
             }
           });
           return;
         }
 
-        console.log(res);
         this.setState({
-          loginStatus: null,
-          user: res.data
+          user: res.data,
+          currScreen: "SOC",
+          history: []
         });
       })
       .catch((err) => {
         this.setState({
-          loginStatus: {
+          LOGIN: {
             loggingIn: false,
+            login: this.login,
             error: 'An unexpected error occurred.'
           }
         });
@@ -104,7 +124,7 @@ class App extends Component {
     let props = update(this.state[screen], { $merge: data });
 
     //If we don't provide any props to save to the history, just use the current props of the screen.
-    if(!historyProps){
+    if (!historyProps) {
       historyProps = this.state[this.state.currScreen];
     }
 
@@ -151,7 +171,7 @@ class App extends Component {
       .then((res) => {
         if (!res.success) {
           this.setState({
-            SOC: update(socIdle, { $merge: { error: res.error}})
+            SOC: update(socIdle, { $merge: { error: res.error } })
           });
           return;
         }
@@ -160,7 +180,7 @@ class App extends Component {
       })
       .catch((err) => {
         this.setState({
-          SOC: update(socIdle, { $merge: { error: 'An Unexpected Error Occurred.'}})
+          SOC: update(socIdle, { $merge: { error: 'An Unexpected Error Occurred.' } })
         });
       })
   }
@@ -203,11 +223,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        {!this.state.user ?
-          <LoginPage login={this.login} loginStatus={this.state.loginStatus} />
-          :
-          <HomePage user={this.state.user} screen={screen} popScreen={this.state.history.length > 0 ? this.popScreen : undefined} />
-        }
+        <HomePage user={this.state.user} screen={screen} openLogin={this.openLogin} popScreen={this.state.history.length > 0 ? this.popScreen : undefined} />
       </div>
     );
   }

@@ -29,11 +29,11 @@ class CourseDetails extends Component {
                 break;
 
             case "Grade Distributions":
-                activeComponent = <GradeDistribution grades={this.props.course.gradeDistributions} />
+                activeComponent = this.props.user ? <GradeDistribution grades={this.props.course.gradeDistributions} /> : <p>You must be logged in to view.</p>
                 break;
 
             case "Prerequisites":
-                activeComponent = <PreReqs prereqs={this.props.course.prereqs} coursesTaken={Object.assign(this.props.user.courses.inProgress, this.props.user.courses.completed)} openCourseDetails={this.props.openCourseDetails} />;
+                activeComponent = this.props.user ? <PreReqs prereqs={this.props.course.prereqs} coursesTaken={Object.assign(this.props.user.courses.inProgress, this.props.user.courses.completed)} openCourseDetails={this.props.openCourseDetails} /> : <p>You must be logged in to view.</p>
                 break;
             
             case "MyrmeyLearn":

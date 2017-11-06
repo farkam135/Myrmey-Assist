@@ -21,14 +21,18 @@ class HomePage extends Component {
                                     <i className="fa fa-lg fa-github"></i>
                                 </span>
                             </a>
-                            <a className="navbar-item">{this.props.user.studentInfo.name}</a>
+                            {this.props.user ?
+                                <a className="navbar-item">{this.props.user.studentInfo.name}</a>
+                                :
+                                <a className="navbar-item" onClick={this.props.openLogin}>Login</a>
+                            }
                         </div>
                     </div>
                 </nav>
                 <div className="columns is-gapless">
                     <div className="column">
                         <div className="box is-full-height">
-                            ayy
+                            Calendar
                             </div>
                     </div>
                     <div className="column">
