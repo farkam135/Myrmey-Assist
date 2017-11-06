@@ -9,3 +9,7 @@
 .no-margin {
     margin-bottom: 0 !important;
 }
+
+small {
+    margin-left: 0.5em;
+}
