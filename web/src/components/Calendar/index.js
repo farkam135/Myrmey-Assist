@@ -5,80 +5,6 @@ export const START_HOUR = 6;
 export const END_HOUR = 23;
 const CLASS_COLORS = ["#deb887", "#20b2aa", "#cd5c5c", "#ba55d3", "#4169e1", "#ff6347", "#32cd32"]
 
-const CLASS_SCHEDULE = 
-{
-    "COMPSCI 116": {
-        "YearTerm": "2017-92",
-        "code": "34190",
-        "days": "Tu Th",
-        "dept": "COMPSCI",
-        "instructor": "DILLENCOURT, M.",
-        "location": "SSLH 100",
-        "num": "116",
-        "time": "10:00- 11:50a",
-        "title": "COMP VISION",
-        "DIS": {
-            "COMPSCI 116": {
-                "YearTerm": "2017-92",
-                "code": "34190",
-                "days": "Fr",
-                "dept": "COMPSCI",
-                "instructor": "DILLENCOURT, M.",
-                "location": "SSLH 100",
-                "num": "116",
-                "time": "6:00- 6:50a",
-                "title": "COMP VISION",
-            }
-        }
-    },
-    "COMPSCI 121": {
-        "YearTerm": "2017-92",
-        "code": "34150",
-        "days": "Mo We Fr",
-        "dept": "COMPSCI",
-        "instructor": "BIC, L.",
-        "location": "BS3 1200",
-        "num": "121",
-        "time": "9:00- 10:50p",
-        "title": "SEARCH RETRIEVAL"
-    },
-    "COMPSCI 143B": {
-        "YearTerm": "2017-92",
-        "code": "34150",
-        "days": "Tu Th",
-        "dept": "COMPSCI",
-        "instructor": "BIC, L.",
-        "location": "BS3 1200",
-        "num": "143B",
-        "time": "1:00- 1:50p",
-        "title": "PROJ IN OPERATING SYS"
-    },
-    "COMPSCI 161": {
-        "YearTerm": "2017-92",
-        "code": "34190",
-        "days": "Mo We Fr",
-        "dept": "COMPSCI",
-        "instructor": "DILLENCOURT, M.",
-        "location": "SSLH 100",
-        "num": "161",
-        "time": "3:00- 3:50p",
-        "title": "DES&ANALYS OF ALGOR",
-        "DIS": {
-            "COMPSCI 161": {
-                "YearTerm": "2017-92",
-                "code": "34190",
-                "days": "Fr",
-                "dept": "COMPSCI",
-                "instructor": "DILLENCOURT, M.",
-                "location": "SSLH 100",
-                "num": "161",
-                "time": "4:00- 4:50p",
-                "title": "DES&ANALYS OF ALGOR LAB",
-            }
-        }
-    }
-};
-
 //This component will receive an object that holds all the classes
 //that a student is currently taking/plan to 
 class Calendar extends Component {
@@ -104,7 +30,7 @@ class Calendar extends Component {
             CLASS_COLORS[j] = temp;
         }
 
-        this.populateCalendar(CLASS_SCHEDULE);
+        this.populateCalendar(this.props.classSchedule);
     }
 
     populateCalendar(classes, color) {
