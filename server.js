@@ -83,7 +83,13 @@ function getCourseDetails(courseName, res) {
     Promise.all([UCI.SOC.getCourseDetails([courseName]), MYRMEYDB.getGrades(dbSelector), searchSchedule(searchScheduleParams)])
         .then((response) => {
             let course = response[0][courseName];
-            course.offerings = response[2][0].offerings;
+            course.offerings = [];
+
+            //If there are offerings add them, otherwise just leave it as an empty array.
+            if (response[2].length > 0) {
+                course.offerings = response[2][0].offerings;
+            }
+
             let courseGrades = {};
 
             //Go through the results of the db grade lookup for the course, organizing the grades by professor.
@@ -112,7 +118,7 @@ function getCourseDetails(courseName, res) {
             Object.keys(courseGrades).forEach((instructor) => {
                 course.gradeDistributions.push(courseGrades[instructor]);
             });
-            res.send({success: true, data: course});
+            res.send({ success: true, data: course });
         })
 }
 
@@ -168,7 +174,7 @@ app.post('/api/login', (req, res) => {
 app.get('/api/getCourseDetails', (req, res) => {
     console.log(`[getCourseDetails REQUEST]`);
     if (!req.query.course) {
-        res.send({success: false, error:'ERROR: Please provide a course.'});
+        res.send({ success: false, error: 'ERROR: Please provide a course.' });
         return;
     }
 
