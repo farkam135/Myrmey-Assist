@@ -28,20 +28,18 @@ class CourseDetails extends Component {
                 }
                 break;
 
-            case "Grade Distributions":
-                activeComponent = this.props.user ? <GradeDistribution grades={this.props.course.gradeDistributions} /> : <p>You must be logged in to view.</p>
+            case "Grades":
+                activeComponent = this.props.user ? [<GradeDistribution key={1} grades={this.props.course.gradeDistributions} />,
+                <p key={2}><b>Coming Soon...</b> MyrmeyLearn is a machine learning algorithm that uses your grades to match you with similar performing students who have taken this course
+                    in order to predict what grade you will receive. In order to develop this algorithm we need more students logging in so we can collect grades anonymously and make sure
+                MyrmeyLearn is accurate before releasing it. Overtime the more students that use the platform the smarter it will become!</p>]
+                    : <p>You must be logged in to view.</p>
                 break;
 
             case "Prerequisites":
                 activeComponent = this.props.user ? <PreReqs prereqs={this.props.course.prereqs} coursesTaken={Object.assign(this.props.user.courses.inProgress, this.props.user.courses.completed)} openCourseDetails={this.props.openCourseDetails} /> : <p>You must be logged in to view.</p>
                 break;
-            
-            case "MyrmeyLearn":
-                activeComponent = <p><b>Coming Soon...</b> MyrmeyLearn is a machine learning algorithm that uses your grades to match you with similar performing students who have taken this course  
-                     in order to predict what grade you will receive. In order to develop this algorithm we need more students logging in so we can collect grades anonymously and make sure
-                    MyrmeyLearn is accurate before releasing it. Overtime the more students that use the platform the smarter it will become!</p>;
-                break;
-            
+
             case "Comments":
                 activeComponent = <p><b>Coming Soon...</b> See what other students who have taken this course say about it, organize it based off which
                                         professor taught it or just view the comments in general.</p>;
@@ -56,9 +54,8 @@ class CourseDetails extends Component {
                 <div className="tabs">
                     <ul>
                         <li className={this.state.activeTab === 'Offerings' ? "is-active" : "is-inactive"}><a onClick={this.changeActiveTab}>Offerings</a></li>
-                        <li className={this.state.activeTab === 'Grade Distributions' ? "is-active" : "is-inactive"}><a onClick={this.changeActiveTab}>Grade Distributions</a></li>
+                        <li className={this.state.activeTab === 'Grades' ? "is-active" : "is-inactive"}><a onClick={this.changeActiveTab}>Grades</a></li>
                         <li className={this.state.activeTab === 'Prerequisites' ? "is-active" : "is-inactive"}><a onClick={this.changeActiveTab}>Prerequisites</a></li>
-                        <li className={this.state.activeTab === 'MyrmeyLearn' ? "is-active" : "is-inactive"}><a onClick={this.changeActiveTab}>MyrmeyLearn</a></li>
                         <li className={this.state.activeTab === 'Comments' ? "is-active" : "is-inactive"}><a onClick={this.changeActiveTab}>Comments</a></li>
                     </ul>
                 </div>

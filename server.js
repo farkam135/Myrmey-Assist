@@ -1,9 +1,11 @@
 const UCI = require('UCI');
 const MYRMEYDB = require('./myrmeydb.js');
-const app = require('express')();
+const express = require('express');
+const app = express();
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const bodyParser = require('body-parser');
+const path = require('path');
 const config = require('./config.json');
 
 const services = {}
@@ -16,6 +18,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+app.use(express.static(path.join(__dirname, 'web/build')));
 
 /**
  * generateMyrmeyId
@@ -83,7 +87,13 @@ function getCourseDetails(courseName, res) {
     Promise.all([UCI.SOC.getCourseDetails([courseName]), MYRMEYDB.getGrades(dbSelector), searchSchedule(searchScheduleParams)])
         .then((response) => {
             let course = response[0][courseName];
-            course.offerings = response[2][0].offerings;
+            course.offerings = [];
+
+            //If there are offerings add them, otherwise just leave it as an empty array.
+            if (response[2].length > 0) {
+                course.offerings = response[2][0].offerings;
+            }
+
             let courseGrades = {};
 
             //Go through the results of the db grade lookup for the course, organizing the grades by professor.
@@ -112,7 +122,7 @@ function getCourseDetails(courseName, res) {
             Object.keys(courseGrades).forEach((instructor) => {
                 course.gradeDistributions.push(courseGrades[instructor]);
             });
-            res.send({success: true, data: course});
+            res.send({ success: true, data: course });
         })
 }
 
@@ -168,7 +178,7 @@ app.post('/api/login', (req, res) => {
 app.get('/api/getCourseDetails', (req, res) => {
     console.log(`[getCourseDetails REQUEST]`);
     if (!req.query.course) {
-        res.send({success: false, error:'ERROR: Please provide a course.'});
+        res.send({ success: false, error: 'ERROR: Please provide a course.' });
         return;
     }
 
@@ -189,10 +199,15 @@ app.post('/api/searchSchedule', (req, res) => {
     searchSchedule(req.body, res);
 });
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'web/build/index.html'));
+});
+
+
 UCI.SOC.init()
     .then(() => {
         //return Promise.resolve();
-        return Promise.all([UCI.PROFS.refreshProfs(), UCI.SOC.loadDept('COMPSCI')]);
+        return Promise.all([UCI.PROFS.refreshProfs(), UCI.SOC.loadAll()]);
     })
     .then(() => {
         app.listen(8080, () => {
