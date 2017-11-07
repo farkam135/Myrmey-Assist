@@ -49,9 +49,6 @@ CREATE TABLE completed_courses (
     course character varying(50)
 );
 
-
-ALTER TABLE completed_courses OWNER TO myrmey;
-
 --
 -- TOC entry 186 (class 1259 OID 16416)
 -- Name: grades; Type: TABLE; Schema: public; Owner: myrmey
@@ -66,9 +63,6 @@ CREATE TABLE grades (
     grade character varying(2)
 );
 
-
-ALTER TABLE grades OWNER TO myrmey;
-
 --
 -- TOC entry 187 (class 1259 OID 32770)
 -- Name: planned_courses; Type: TABLE; Schema: public; Owner: myrmey
@@ -79,9 +73,6 @@ CREATE TABLE planned_courses (
     course character varying(50)
 );
 
-
-ALTER TABLE planned_courses OWNER TO myrmey;
-
 --
 -- TOC entry 188 (class 1259 OID 40962)
 -- Name: watchlist; Type: TABLE; Schema: public; Owner: myrmey
@@ -91,9 +82,6 @@ CREATE TABLE watchlist (
     email character varying(255) NOT NULL,
     code character varying(8) NOT NULL
 );
-
-
-ALTER TABLE watchlist OWNER TO myrmey;
 
 --
 -- TOC entry 2048 (class 2606 OID 16420)
