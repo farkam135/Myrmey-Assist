@@ -11,6 +11,9 @@ Final, Max, Enr, WL, Req, Rstr, Textbooks, Web, Status].
 - addPlannedCourse {function(object)}
 A function that is called when a user wants to add a course offering to their planned list, it will be passed the course object as a parameter.
 
+-courseName {string}
+The name of the course, used in adding it to the schedule
+
 ## Example
 let offerings =[
     {
@@ -53,5 +56,5 @@ let offerings =[
 ]
 
 return (
-    <CourseOfferings offerings={offerings} addPlannedCourse={(offering) => {console.log(offering)}} />
+    <CourseOfferings courseName="COMPSCI 120" offerings={offerings} addPlannedCourse={(offering) => {console.log(offering)}} />
 );

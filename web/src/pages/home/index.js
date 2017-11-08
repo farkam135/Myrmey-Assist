@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Schedule from '../../components/Schedule';
 import Inspector from '../../components/Inspector';
 import './style.css';
 import myrmey from '../../assets/myrmey.svg';
@@ -31,9 +32,9 @@ class HomePage extends Component {
                 </nav>
                 <div className="columns is-gapless">
                     <div className="column">
-                        <div className="box is-full-height">
-                            Calendar
-                            </div>
+                        <div className="is-full-height">
+                            <Schedule schedule={this.props.schedule} removePlannedCourse={this.props.removePlannedCourse} />
+                        </div>
                     </div>
                     <div className="column is-4">
                         {this.props.popScreen &&

@@ -28,8 +28,13 @@ class CourseOfferings extends Component {
                 statusTD = <td><a onClick={() => { this.props.addWatchlist(offering.Code) }}><b>{offering.Status}</b></a></td>;
             }
 
+            let codeTD = <td>{offering.Code}</td>
+            if(offering.Time !== 'TBA'){
+                codeTD = <td className="clickable" onClick={() => { this.props.addPlannedCourse(this.props.courseName, offering) }}><a>{offering.Code}</a></td>;
+            }
+
             return <tr key={i}>
-                <td className="clickable" onClick={() => { this.props.addPlannedCourse(offering) }}><a>{offering.Code}</a></td>
+                {codeTD}
                 <td>{offering.Type}</td>
                 <td>{offering.Units}</td>
                 <td>{instructorTD}</td>

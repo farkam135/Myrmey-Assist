@@ -1,0 +1,11 @@
+.rbc-time-header > .rbc-row:nth-of-type(2) {
+    display: none !important;
+}
+
+.rbc-current-time-indicator {
+    display: none !important;
+}
+
+.rbc-today {
+    background-color: inherit;
+}

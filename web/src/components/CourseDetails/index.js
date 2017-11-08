@@ -35,7 +35,7 @@ class CourseDetails extends Component {
                     activeTab = <p>No Course Offerings :(</p>;
                 }
                 else {
-                    activeTab = <CourseOfferings offerings={this.props.course.offerings} addWatchlist={this.props.addWatchlist} addPlannedCourse={this.props.addPlannedCourse} />;
+                    activeTab = <CourseOfferings offerings={this.props.course.offerings} courseName={courseName} addWatchlist={this.props.addWatchlist} addPlannedCourse={this.props.addPlannedCourse} />;
                 }
                 break;
 

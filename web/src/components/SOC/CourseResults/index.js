@@ -9,7 +9,7 @@ class CourseResults extends Component {
             <nav className="panel is-size-6 no-padding no-margin" >
                 <p className="panel-heading clickable no-radius" onClick={() => {this.props.openCourseDetails(courseId)}}>{courseId} - <b>{this.props.courseResults.name}</b><small className="is-size-7">(Click for more info)</small></p>
                 <div className="panel-block no-padding">
-                    <CourseOfferings offerings={this.props.courseResults.offerings} addPlannedCourse={this.props.addPlannedCourse} addWatchlist={this.props.addWatchlist} />
+                    <CourseOfferings offerings={this.props.courseResults.offerings} courseName={courseId} addPlannedCourse={this.props.addPlannedCourse} addWatchlist={this.props.addWatchlist} />
                 </div>
             </nav>
         );

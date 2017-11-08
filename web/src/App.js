@@ -60,6 +60,7 @@ class App extends Component {
         addCompletedCourse: this.addCompletedCourse,
         openCourseDetails: this.openCourseDetails
       },
+      schedule: {},
       history: [],
       currScreen: "SOC"
     }
@@ -268,9 +269,25 @@ class App extends Component {
       })
   }
 
-  addPlannedCourse = (course) => {
-    //TODO
-    console.log(course);
+  addPlannedCourse = (courseName, offering) => {
+    let plannedOffering = {
+      name: courseName,
+      code: offering.Code,
+      type: offering.Type,
+      time: offering.Time
+    };
+
+    this.setState({
+      schedule: update(this.state.schedule, { $merge: { [offering.Code]: plannedOffering } })
+    })
+
+    //TODO: Send to server
+  }
+
+  removePlannedCourse = (code) => {
+    this.setState({
+      schedule: update(this.state.schedule, { $unset: [code] })
+    })
   }
 
   render() {
@@ -281,7 +298,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <HomePage user={this.state.user} screen={screen} openLogin={this.openLogin} popScreen={this.state.history.length > 0 ? this.popScreen : undefined} />
+        <HomePage user={this.state.user} schedule={this.state.schedule} removePlannedCourse={this.removePlannedCourse} screen={screen} openLogin={this.openLogin} popScreen={this.state.history.length > 0 ? this.popScreen : undefined} />
         <NotificationSystem ref="notificationSystem" />
       </div>
     );

@@ -5,7 +5,9 @@
   "dependencies": {
     "bulma": "^0.5.3",
     "immutability-helper": "^2.4.0",
+    "moment": "^2.19.1",
     "react": "^16.0.0",
+    "react-big-calendar": "^0.17.0",
     "react-dom": "^16.0.0",
     "react-notification-system": "^0.2.16",
     "react-scripts": "1.0.14"
