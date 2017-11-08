@@ -35,7 +35,7 @@ class HomePage extends Component {
                             Calendar
                             </div>
                     </div>
-                    <div className="column">
+                    <div className="column is-4">
                         {this.props.popScreen &&
                             <button className="button is-primary is-fullwidth no-radius" onClick={this.props.popScreen}>Back</button>
                         }
