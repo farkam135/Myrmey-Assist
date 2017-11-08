@@ -52,6 +52,7 @@ class App extends Component {
       },
       COURSE_DETAILS: {
         addPlannedCourse: this.addPlannedCourse,
+        addCompletedCourse: this.addCompletedCourse,
         openCourseDetails: this.openCourseDetails
       },
       history: [],
@@ -74,7 +75,7 @@ class App extends Component {
     if (this.state.currScreen !== 'LOGIN') {
       this.pushScreen('LOGIN', { loggingIn: true });
     }
-    else{
+    else {
       this.setState({
         LOGIN: {
           loggingIn: true,
@@ -181,6 +182,24 @@ class App extends Component {
           SOC: update(socIdle, { $merge: { error: 'An Unexpected Error Occurred.' } })
         });
       })
+  }
+
+  addCompletedCourse = (courseName) => {
+    let updatedCompletedCourses = update(this.state.user.courses.completed, { $merge: { [courseName]: 'Manual' } });
+    let updatedCourses = update(this.state.user.courses, { $merge: { completed: updatedCompletedCourses } });
+    let updatedUser = update(this.state.user, { $merge: { courses: updatedCourses } });
+
+    fetch('/api/addCompletedCourse', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ myrmeyid: this.state.user.myrmeyid, courseName })
+    });
+
+    this.setState({
+      user: updatedUser
+    })
   }
 
   openCourseDetails = (courseName) => {

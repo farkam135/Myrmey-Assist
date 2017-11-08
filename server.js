@@ -87,6 +87,8 @@ function getCourseDetails(courseName, res) {
     Promise.all([UCI.SOC.getCourseDetails([courseName]), MYRMEYDB.getGrades(dbSelector), searchSchedule(searchScheduleParams)])
         .then((response) => {
             let course = response[0][courseName];
+            course.dept = courseDeptNum[1];
+            course.num = courseDeptNum[2];
             course.offerings = [];
 
             //If there are offerings add them, otherwise just leave it as an empty array.
@@ -126,7 +128,7 @@ function getCourseDetails(courseName, res) {
         })
 }
 
-const offeringBlacklist = ["Nor","Place","Req","Rstr","Sec","Textbooks","Web"]; //The columns to remove before passing onto the frontend
+const offeringBlacklist = ["Nor", "Place", "Req", "Rstr", "Sec", "Textbooks", "Web"]; //The columns to remove before passing onto the frontend
 function searchSchedule(search, res) {
     return UCI.SOC.searchSchedule(search)
         .then((results) => {
@@ -202,6 +204,30 @@ app.post('/api/searchSchedule', (req, res) => {
     }
 
     searchSchedule(req.body, res);
+});
+
+app.post('/api/addCompletedCourse', (req, res) => {
+    console.log(`[addCompletedCourse REQUEST]`);
+    if (req.body.myrmeyid.length === 0 || req.body.courseName.length === 0) {
+        res.send({
+            success: false,
+            error: 'ERROR: Invalid course name or id specified.'
+        });
+        return;
+    }
+
+    //Verify the student's myrmeyid before adding their completed course
+    jwt.verify(req.body.myrmeyid, config.salt, (error, decoded) => {
+        if (error) {
+            res.send({
+                success: false,
+                error
+            });
+            return;
+        }
+
+        MYRMEYDB.addCompletedCourse(decoded.id, req.body.courseName);
+    });
 });
 
 app.get('*', (req, res) => {
