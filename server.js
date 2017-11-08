@@ -139,6 +139,7 @@ function searchSchedule(search, res) {
                         offering[blacklistedColumn] = undefined;
                     });
 
+                    offering.Time = offering.Time.trim();
                     offering.Instructor = offering.Instructor.map((instructor) => {
                         let rmp = UCI.PROFS.getProfessor(instructor);
                         return {
@@ -194,7 +195,6 @@ app.get('/api/getCourseDetails', (req, res) => {
 
 app.post('/api/searchSchedule', (req, res) => {
     console.log(`[searchSchedule REQUEST]`);
-    console.log(req.body);
     if (req.body.InstrName === '' && req.body.CourseCodes === '' && req.body.Dept === 'ALL' && req.body.Breadth === 'ANY') {
         res.send({
             success: false,
