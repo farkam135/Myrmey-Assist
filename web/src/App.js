@@ -159,7 +159,6 @@ class App extends Component {
       SOC: socSearching
     });
 
-    //Add actual search
     fetch('/api/searchSchedule', {
       method: 'POST',
       headers: {

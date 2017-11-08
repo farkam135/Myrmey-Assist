@@ -126,12 +126,17 @@ function getCourseDetails(courseName, res) {
         })
 }
 
+const offeringBlacklist = ["Nor","Place","Req","Rstr","Sec","Textbooks","Web"]; //The columns to remove before passing onto the frontend
 function searchSchedule(search, res) {
     return UCI.SOC.searchSchedule(search)
         .then((results) => {
-            //We have the results go through and modify the instructors to add their ratemyprofessor object
+            //We have the results go through and modify the instructors to add their ratemyprofessor object and remove blacklisted columns
             results.forEach((course) => {
                 course.offerings.forEach((offering) => {
+                    offeringBlacklist.forEach((blacklistedColumn) => {
+                        offering[blacklistedColumn] = undefined;
+                    });
+
                     offering.Instructor = offering.Instructor.map((instructor) => {
                         let rmp = UCI.PROFS.getProfessor(instructor);
                         return {

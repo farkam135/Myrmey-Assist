@@ -28,19 +28,12 @@ class CourseOfferings extends Component {
             return <tr key={i}>
                 <td className="clickable" onClick={() => {this.props.addPlannedCourse(offering)}}><a>{offering.Code}</a></td>
                 <td>{offering.Type}</td>
-                <td>{offering.Sec}</td>
                 <td>{offering.Units}</td>
                 <td>{instructorTD}</td>
                 <td>{offering.Time}</td>
-                <td><a target="_blank" href={offering.Place.href}>{offering.Place.value}</a></td>
-                <td>{offering.Final}</td>
                 <td>{offering.Max}</td>
                 <td>{offering.Enr}</td>
                 <td>{offering.WL}</td>
-                <td>{offering.Req}</td>
-                <td>{offering.Rstr}</td>
-                <td><a target="_blank" href={offering.Textbooks.href}>{offering.Textbooks.value}</a></td>
-                <td><a target="_blank" href={offering.Web.href}>{offering.Web.value}</a></td>
                 {statusTD}
             </tr>
         })
@@ -50,20 +43,13 @@ class CourseOfferings extends Component {
                     <tr className="table-header">
                         <th>Code</th>
                         <th>Type</th>
-                        <th>Sec</th>
                         <th>Units</th>
                         <th>Instructor</th>
                         <th>Time</th>
-                        <th>Place</th>
-                        <th>Final</th>
                         <th>Max</th>
                         <th>Enr</th>
                         <th>WL</th>
-                        <th>Req</th>
-                        <th>Rstr</th>
-                        <th>Textbooks</th>
-                        <th>Web</th>
-                        <th>Satus</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
