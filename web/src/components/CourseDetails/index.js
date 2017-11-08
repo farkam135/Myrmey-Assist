@@ -22,10 +22,10 @@ class CourseDetails extends Component {
         let activeTab = undefined;
 
         let coursesTaken = {};
-        if(this.props.user){
+        if (this.props.user) {
             coursesTaken = Object.assign(this.props.user.courses.inProgress, this.props.user.courses.completed);
-            if(!coursesTaken[courseName]){
-                activeTitle = <h5 className="title is-6">{courseName} <a className="is-size-7" onClick={() => {this.props.addCompletedCourse(courseName)}}>Mark as complete</a></h5>;
+            if (!coursesTaken[courseName]) {
+                activeTitle = <h5 className="title is-6">{courseName} <a className="is-size-7" onClick={() => { this.props.addCompletedCourse(courseName) }}>Mark as complete</a></h5>;
             }
         }
 
@@ -35,7 +35,7 @@ class CourseDetails extends Component {
                     activeTab = <p>No Course Offerings :(</p>;
                 }
                 else {
-                    activeTab = <CourseOfferings offerings={this.props.course.offerings} addPlannedCourse={this.props.addPlannedCourse} />;
+                    activeTab = <CourseOfferings offerings={this.props.course.offerings} addWatchlist={this.props.addWatchlist} addPlannedCourse={this.props.addPlannedCourse} />;
                 }
                 break;
 
