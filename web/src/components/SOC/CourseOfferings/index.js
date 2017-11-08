@@ -1,32 +1,35 @@
 import React, { Component } from 'react';
-import './style.css'; 
+import './style.css';
 
 class CourseOfferings extends Component {
     render() {
         let offeringRows = this.props.offerings.map((offering, i) => {
             //Create instructor td by cheking if there is ratemyprofessor data
             let instructorTD = offering.Instructor.map((instructor, i) => {
-                if(instructor.rmp){
+                if (instructor.rmp) {
                     return <a key={i} target="_blank" href={`http://www.ratemyprofessors.com/ShowRatings.jsp?tid=${instructor.rmp.id}`}>{instructor.name} [{Number(instructor.rmp.rating).toFixed(1)}]<br /></a>
                 }
-                else{
+                else {
                     return `${instructor.name}\n`
                 }
             });
 
             let statusTD = <td><b>{offering.Status}</b></td>;
-            if(offering.Status === 'OPEN'){
+            if (offering.Status === 'OPEN') {
                 statusTD = <td className="has-text-success"><b>{offering.Status}</b></td>;
             }
-            else if(offering.Status === 'Waitl'){
+            else if (offering.Status === 'Waitl') {
                 statusTD = <td className="has-text-danger"><b>{offering.Status}</b></td>;
             }
-            else if(offering.Status === 'NewOnly'){
+            else if (offering.Status === 'NewOnly') {
                 statusTD = <td className="has-text-primary"><b>{offering.Status}</b></td>;
+            }
+            else if (offering.Status === 'FULL') {
+                statusTD = <td><a onClick={() => { this.props.addWatchlist(offering.Code) }}><b>{offering.Status}</b></a></td>;
             }
 
             return <tr key={i}>
-                <td className="clickable" onClick={() => {this.props.addPlannedCourse(offering)}}><a>{offering.Code}</a></td>
+                <td className="clickable" onClick={() => { this.props.addPlannedCourse(offering) }}><a>{offering.Code}</a></td>
                 <td>{offering.Type}</td>
                 <td>{offering.Units}</td>
                 <td>{instructorTD}</td>

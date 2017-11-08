@@ -208,7 +208,7 @@ app.post('/api/searchSchedule', (req, res) => {
 
 app.post('/api/addCompletedCourse', (req, res) => {
     console.log(`[addCompletedCourse REQUEST]`);
-    if (req.body.myrmeyid.length === 0 || req.body.courseName.length === 0) {
+    if (!req.body.myrmeyid || !req.body.courseName) {
         res.send({
             success: false,
             error: 'ERROR: Invalid course name or id specified.'
@@ -226,9 +226,44 @@ app.post('/api/addCompletedCourse', (req, res) => {
             return;
         }
 
-        MYRMEYDB.addCompletedCourse(decoded.id, req.body.courseName);
+        MYRMEYDB.addCompletedCourse(decoded.id, req.body.courseName)
+            .then(() => {
+                res.send({ success: true })
+            })
     });
 });
+
+app.post('/api/addWatchlist', (req, res) => {
+    console.log(`[addWatchlist REQUEST]`);
+    if (!req.body.myrmeyid || !req.body.email || !req.body.code) {
+        res.send({
+            success: false,
+            error: 'ERROR: Invalid email, code or id specified.'
+        });
+        return;
+    }
+
+    //Verify the student's myrmeyid before adding their request to the watchlist
+    jwt.verify(req.body.myrmeyid, config.salt, (error, decoded) => {
+        if (error) {
+            res.send({
+                success: false,
+                error
+            });
+            return;
+        }
+
+        MYRMEYDB.addWatch(req.body.email, req.body.code)
+            .then(() => {
+                res.send({ success: true });
+            })
+            .catch((err) => {
+                if (err.detail.includes('already exists')) {
+                    res.send({ success: false, error: `${req.body.code} is already on your watchlist.` });
+                }
+            });
+    });
+})
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'web/build/index.html'));

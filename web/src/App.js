@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import update from 'immutability-helper';
+import NotificationSystem from 'react-notification-system';
 
 import HomePage from './pages/home';
 import Search from './components/SOC/Search';
@@ -16,6 +17,8 @@ const SCREENS = {
 }
 
 class App extends Component {
+  _notificationSystem = null;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -48,10 +51,12 @@ class App extends Component {
       },
       SEARCH_RESULTS: {
         addPlannedCourse: this.addPlannedCourse,
+        addWatchlist: this.addWatchlist,
         openCourseDetails: this.openCourseDetails
       },
       COURSE_DETAILS: {
         addPlannedCourse: this.addPlannedCourse,
+        addWatchlist: this.addWatchlist,
         addCompletedCourse: this.addCompletedCourse,
         openCourseDetails: this.openCourseDetails
       },
@@ -62,6 +67,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
+    this._notificationSystem = this.refs.notificationSystem;
     if (global.location.search.includes('?ucinetid_auth=')) {
       this.login({ ucinetid_auth: global.location.search.replace('?ucinetid_auth=', '') });
     }
@@ -202,6 +208,41 @@ class App extends Component {
     })
   }
 
+  addWatchlist = (code) => {
+    if (!this.state.user) {
+      this._notificationSystem.addNotification({
+        title: "Error",
+        message: "Must be logged in to add a course to your watchlist",
+        level: "error"
+      });
+      return;
+    }
+
+    fetch('/api/addWatchlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ myrmeyid: this.state.user.myrmeyid, email: this.state.user.studentInfo.email.toLowerCase(), code })
+    }).then(res => res.json())
+      .then((response) => {
+        if (response.success) {
+          this._notificationSystem.addNotification({
+            title: "Course Added",
+            message: `${code} has been added to your watchlist. You will be emailed at ${this.state.user.studentInfo.email.toLowerCase()} when it is no longer FULL.`,
+            level: "success"
+          });
+        }
+        else {
+          this._notificationSystem.addNotification({
+            title: "Error",
+            message: response.error,
+            level: "error"
+          });
+        }
+      })
+  }
+
   openCourseDetails = (courseName) => {
     courseName = encodeURIComponent(courseName);
 
@@ -241,6 +282,7 @@ class App extends Component {
     return (
       <div className="App">
         <HomePage user={this.state.user} screen={screen} openLogin={this.openLogin} popScreen={this.state.history.length > 0 ? this.popScreen : undefined} />
+        <NotificationSystem ref="notificationSystem" />
       </div>
     );
   }
