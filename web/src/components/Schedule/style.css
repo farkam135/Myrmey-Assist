@@ -9,3 +9,7 @@
 .rbc-today {
     background-color: inherit;
 }
+
+.rbc-timeslot-group {
+    min-height: 60px !important;
+}

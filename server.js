@@ -241,16 +241,34 @@ app.post('/api/addCompletedCourse', (req, res) => {
 
 app.post('/api/addWatchlist', (req, res) => {
     console.log(`[addWatchlist REQUEST]`);
-    if (!req.body.myrmeyid || !req.body.email || !req.body.code) {
+    if (!req.body.email || !req.body.code) {
+        res.send({
+            success: false,
+            error: 'ERROR: Invalid email or code specified.'
+        });
+        return;
+    }
+    MYRMEYDB.addWatch(req.body.email, req.body.code)
+    .then(() => {
+        res.send({ success: true });
+    })
+    .catch((err) => {
+        if (err.detail.includes('already exists')) {
+            res.send({ success: false, error: `${req.body.code} is already on your watchlist.` });
+        }
+    });
+
+    //Disabled while login is disabled
+    /* if (!req.body.myrmeyid || !req.body.email || !req.body.code) {
         res.send({
             success: false,
             error: 'ERROR: Invalid email, code or id specified.'
         });
         return;
-    }
+    } */
 
-    //Verify the student's myrmeyid before adding their request to the watchlist
-    jwt.verify(req.body.myrmeyid, config.salt, (error, decoded) => {
+    //[Disabled while login is disabled] Verify the student's myrmeyid before adding their request to the watchlist
+    /* jwt.verify(req.body.myrmeyid, config.salt, (error, decoded) => {
         if (error) {
             res.send({
                 success: false,
@@ -268,7 +286,7 @@ app.post('/api/addWatchlist', (req, res) => {
                     res.send({ success: false, error: `${req.body.code} is already on your watchlist.` });
                 }
             });
-    });
+    }); */
 })
 
 app.get('*', (req, res) => {

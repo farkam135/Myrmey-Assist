@@ -62,7 +62,9 @@ class App extends Component {
       },
       schedule: {},
       history: [],
-      currScreen: "SOC"
+      currScreen: "SOC",
+      showWatchlistEmail: false,
+      watchlistEmail: ''
     }
 
   }
@@ -222,14 +224,48 @@ class App extends Component {
   }
 
   addWatchlist = (code) => {
-    if (!this.state.user) {
+    let watchlistEmail = localStorage.getItem('watchlistEmail');
+    if (!watchlistEmail) {
+      this.setState({
+        showWatchlistEmail: true,
+        watchlistEmail: ''
+      });
+      return;
+    }
+
+    fetch('/api/addWatchlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: watchlistEmail.toLowerCase(), code })
+    }).then(res => res.json())
+      .then((response) => {
+        if (response.success) {
+          this._notificationSystem.addNotification({
+            title: "Course Added",
+            message: `${code} has been added to your watchlist. You will be emailed at ${watchlistEmail.toLowerCase()} when it is no longer FULL.`,
+            level: "success"
+          });
+        }
+        else {
+          this._notificationSystem.addNotification({
+            title: "Error",
+            message: response.error,
+            level: "error"
+          });
+        }
+      })
+
+    //Disabled while login disabled
+    /* if (!this.state.user) {
       this._notificationSystem.addNotification({
         title: "Error",
         message: "Must be logged in to add a course to your watchlist",
         level: "error"
       });
       return;
-    }
+    } 
 
     fetch('/api/addWatchlist', {
       method: 'POST',
@@ -253,7 +289,29 @@ class App extends Component {
             level: "error"
           });
         }
-      })
+      }) */
+  }
+
+  watchlistEmailModal = () => {
+    return (<div class="modal is-active">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Watchlist Setup</p>
+        </header>
+        <section class="modal-card-body">
+          <p>When you add a course to your watchlist, MyrmeyAssist will keep track of it and notify you when the course is no longer <b>FULL</b>. This is a one time notification,
+            once the course opens up and you are notified, you will be removed from the watchlist for the course. To setup your watchlist, please enter the email
+            in which you would like to be notified below. This email will be automatically used for all future watchlist adds so make sure you enter it correctly! NOTE: This will not add the course you just
+            selected to your watchlist, once you setup your email, you will have to add the course again!</p>
+          <input className="input" type="email" placeholder="Email Address" value={this.state.watchlistEmail} onChange={(e) => { this.setState({ watchlistEmail: e.target.value }) }}></input>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" disabled={this.state.watchlistEmail.length === 0} onClick={() => { this.setState({ showWatchlistEmail: false }); localStorage.setItem('watchlistEmail', this.state.watchlistEmail) }}>Set Watchlist Email</button>
+          <button class="button" onClick={() => { this.setState({ showWatchlistEmail: false, watchlistEmail: '' }) }}>Cancel</button>
+        </footer>
+      </div>
+    </div>);
   }
 
   openCourseDetails = (courseName) => {
@@ -308,7 +366,7 @@ class App extends Component {
     });
 
     localStorage.setItem('schedule', JSON.stringify(newSchedule));
-    
+
     //TODO: Send to server, since login is disable for now just store in local storage.
   }
 
@@ -322,6 +380,7 @@ class App extends Component {
       <div className="App">
         <HomePage user={this.state.user} schedule={this.state.schedule} removePlannedCourse={this.removePlannedCourse} screen={screen} openLogin={this.openLogin} popScreen={this.state.history.length > 0 ? this.popScreen : undefined} />
         <NotificationSystem ref="notificationSystem" />
+        {this.state.showWatchlistEmail && this.watchlistEmailModal()}
       </div>
     );
   }

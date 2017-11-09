@@ -15,3 +15,7 @@
 .no-radius {
     border-radius: 0 !important;
 }
+
+.is-size-7 {
+    max-width: 30vw;
+}
