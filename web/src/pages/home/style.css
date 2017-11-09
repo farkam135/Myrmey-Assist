@@ -16,6 +16,6 @@
     border-radius: 0 !important;
 }
 
-.is-size-7 {
-    max-width: 30vw;
+.has-back-button > p {
+    max-width: 31vw;
 }
