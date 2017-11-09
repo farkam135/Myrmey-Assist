@@ -36,7 +36,7 @@ class HomePage extends Component {
                             <Schedule schedule={this.props.schedule} removePlannedCourse={this.props.removePlannedCourse} />
                         </div>
                     </div>
-                    <div className="column is-4">
+                    <div className="column is-narrow">
                         {this.props.popScreen &&
                             <button className="button is-primary is-fullwidth no-radius" onClick={this.props.popScreen}>Back</button>
                         }
