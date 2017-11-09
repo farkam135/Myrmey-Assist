@@ -35,7 +35,6 @@ function stop(){
 }
 
 function checkWatchlist(){
-    console.log("Checking Watchlist");
     let watchedCourses = undefined;
 
     MYRMEYDB.getWatchedCourses()
