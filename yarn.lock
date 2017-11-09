@@ -8,7 +8,7 @@
 
 "UCI@git+https://fd4d94f1f4bc5e70e57691f4671f16ccd4a704d3:x-oauth-basic@github.com/farkam135/UCI-API.git":
   version "1.0.0"
-  resolved "git+https://fd4d94f1f4bc5e70e57691f4671f16ccd4a704d3:x-oauth-basic@github.com/farkam135/UCI-API.git#414592ec14e730b4ee65b4de29a6e296fcc1d52b"
+  resolved "git+https://fd4d94f1f4bc5e70e57691f4671f16ccd4a704d3:x-oauth-basic@github.com/farkam135/UCI-API.git#417b6ec73d07c555e97f96574d59dd32bb91accd"
   dependencies:
     cheerio "^0.22.0"
     node-fetch "^1.6.3"
