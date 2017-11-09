@@ -70,12 +70,24 @@ class App extends Component {
   componentDidMount = () => {
     this._notificationSystem = this.refs.notificationSystem;
     if (global.location.search.includes('?ucinetid_auth=')) {
-      this.login({ ucinetid_auth: global.location.search.replace('?ucinetid_auth=', '') });
+      //this.login({ ucinetid_auth: global.location.search.replace('?ucinetid_auth=', '') });
+    }
+
+    let schedule = localStorage.getItem('schedule');
+    if (schedule) {
+      this.setState({
+        schedule: JSON.parse(schedule)
+      })
     }
   }
 
   openLogin = () => {
-    this.pushScreen('LOGIN', { loggingIn: false, error: undefined });
+    this._notificationSystem.addNotification({
+      title: "Disabled",
+      message: "Login is currently disabled. It will be reenabled in the coming days.",
+      level: "error"
+    })
+    //this.pushScreen('LOGIN', { loggingIn: false, error: undefined });
   }
 
   login = (credentials) => {
@@ -277,17 +289,27 @@ class App extends Component {
       time: offering.Time
     };
 
-    this.setState({
-      schedule: update(this.state.schedule, { $merge: { [offering.Code]: plannedOffering } })
-    })
+    let newSchedule = update(this.state.schedule, { $merge: { [offering.Code]: plannedOffering } })
 
-    //TODO: Send to server
+    this.setState({
+      schedule: newSchedule
+    });
+
+    localStorage.setItem('schedule', JSON.stringify(newSchedule));
+
+    //TODO: Send to server, since login is disable for now just store in local storage.
   }
 
   removePlannedCourse = (code) => {
+    let newSchedule = update(this.state.schedule, { $unset: [code] })
+
     this.setState({
-      schedule: update(this.state.schedule, { $unset: [code] })
-    })
+      schedule: newSchedule
+    });
+
+    localStorage.setItem('schedule', JSON.stringify(newSchedule));
+    
+    //TODO: Send to server, since login is disable for now just store in local storage.
   }
 
   render() {
