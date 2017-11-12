@@ -31,12 +31,12 @@ class HomePage extends Component {
                     </div>
                 </nav>
                 <div className="columns is-gapless">
-                    <div className="column">
+                    <div className="column is-hidden-mobile">
                         <div className="is-full-height">
                             <Schedule schedule={this.props.schedule} removePlannedCourse={this.props.removePlannedCourse} />
                         </div>
                     </div>
-                    <div className="column is-narrow">
+                    <div className="column is-4-full">
                         {this.props.popScreen &&
                             <button className="button is-primary is-fullwidth no-radius" onClick={this.props.popScreen}>Back</button>
                         }

@@ -2,6 +2,10 @@
     flex: 1;
 }
 
+.is-4-full {
+    flex: 0 0 33.33333% !important;
+}
+
 .is-full-height {
     height: 94vh !important;
     overflow-y: auto;
@@ -14,8 +18,4 @@
 
 .no-radius {
     border-radius: 0 !important;
-}
-
-.has-back-button > p {
-    max-width: 31vw;
 }
