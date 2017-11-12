@@ -1,5 +1,6 @@
 {
     "salt": "myrmey",
+    "production": false,
     "db": {
         "host": "localhost",
         "user": "myrmey",
