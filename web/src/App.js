@@ -332,6 +332,12 @@ class App extends Component {
           this.setState({
             COURSE_DETAILS: courseDetailsIdle
           });
+
+          this._notificationSystem.addNotification({
+            title: "Error",
+            message: res.error,
+            level: "error"
+          });
           return;
         }
 

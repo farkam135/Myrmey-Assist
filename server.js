@@ -89,6 +89,12 @@ function getCourseDetails(courseName, res) {
     Promise.all([UCI.SOC.getCourseDetails([courseName]), MYRMEYDB.getGrades(dbSelector), searchSchedule(searchScheduleParams)])
         .then((response) => {
             let course = response[0][courseName];
+            if (!course) {
+                res.send({
+                    success: false, error: 'Invalid Course'
+                });
+                return;
+            }
             course.dept = courseDeptNum[1];
             course.num = courseDeptNum[2];
             course.offerings = [];
@@ -200,7 +206,7 @@ app.get('/api/getCourseDetails', (req, res) => {
 });
 
 app.post('/api/searchSchedule', (req, res) => {
-    if(!serverInitiated){
+    if (!serverInitiated) {
         res.send({
             success: false,
             error: 'MyrmeyAssist was just updated and is currently restarting. Please try again in 1-2 minutes.'
