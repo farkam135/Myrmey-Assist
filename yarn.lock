@@ -8,7 +8,7 @@
 
 "UCI@git+https://github.com/farkam135/UCI-API.git":
   version "1.0.0"
-  resolved "git+https://github.com/farkam135/UCI-API.git#632e9b0369fb8d316dd0242f8ca833cbb9df4503"
+  resolved "git+https://github.com/farkam135/UCI-API.git#d0ac063b8120fd7b909ea85470f4909779dca08b"
   dependencies:
     cheerio "^0.22.0"
     node-fetch "^1.6.3"
