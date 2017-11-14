@@ -37,8 +37,9 @@ class PreReqs extends Component {
     render() {
         let prereqs = this.getPrereqsComplete(this.props.prereqs, this.props.coursesTaken);
 
-        let sectionColumns = prereqs.sections.map((section, i) => {
-            return <div key={i} className="column is-narrow">
+        let sections = prereqs.sections.map((section, i) => {
+            return <div key={i}>
+                {i !== 0 && <div className="is-divider" data-content="AND" />}
                 <PreReqsSection section={section} openCourseDetails={this.props.openCourseDetails} />
             </div>
         });
@@ -52,8 +53,9 @@ class PreReqs extends Component {
                         <h4>You Have <span className="tag is-medium is-danger">Not Satisfied</span> All Required Sections</h4>
                     }
                 </div>
-                <div className="columns">
-                    {sectionColumns}
+                <div className="is-divider" data-content="PreReqs: At Least 1 course in each of the following sections"/>
+                <div>
+                    {sections}
                 </div>
             </div>
         )

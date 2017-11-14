@@ -48,7 +48,7 @@ class CourseDetails extends Component {
                 break;
 
             case "Prerequisites":
-                activeTab = this.props.user ? <PreReqs prereqs={this.props.course.prereqs} coursesTaken={coursesTaken} openCourseDetails={this.props.openCourseDetails} /> : <p>You must be logged in to view.</p>
+                activeTab = <PreReqs prereqs={this.props.course.prereqs} coursesTaken={coursesTaken} openCourseDetails={this.props.openCourseDetails} />;
                 break;
 
             case "Comments":

@@ -6,9 +6,9 @@
   version "8.0.51"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.51.tgz#b31d716fb8d58eeb95c068a039b9b6292817d5fb"
 
-"UCI@https://github.com/farkam135/UCI-API.git":
+"UCI@git+https://github.com/farkam135/UCI-API.git":
   version "1.0.0"
-  resolved "https://github.com/farkam135/UCI-API.git#d67b86ee54535f0f4c10c8656e8023dbf5d4331d"
+  resolved "git+https://github.com/farkam135/UCI-API.git#632e9b0369fb8d316dd0242f8ca833cbb9df4503"
   dependencies:
     cheerio "^0.22.0"
     node-fetch "^1.6.3"

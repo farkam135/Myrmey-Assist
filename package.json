@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/farkam135/Project-Myrmey#readme",
   "dependencies": {
-    "UCI": "https://github.com/farkam135/UCI-API.git",
+    "UCI": "git+https://github.com/farkam135/UCI-API.git",
     "body-parser": "^1.18.2",
     "express": "^4.16.1",
     "greenlock-express": "2.x",
