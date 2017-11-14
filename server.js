@@ -363,8 +363,7 @@ else {
 
 UCI.SOC.init()
     .then(() => {
-        //return Promise.resolve();
-        return Promise.all([UCI.PROFS.refreshProfs(), UCI.SOC.loadDept("COMPSCI")]);
+        return Promise.all([UCI.PROFS.refreshProfs(), UCI.SOC.loadAll()]);
     })
     .then(() => {
         serverInitiated = true;
