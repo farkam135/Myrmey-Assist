@@ -9,6 +9,8 @@ const path = require('path');
 const config = require('./config.json');
 
 let serverInitiated = false;
+let searchScheduleRequests = 0;
+let getCourseDetailsRequests = 0;
 
 const services = {}
 if (config.watchlist.enable) {
@@ -196,7 +198,10 @@ app.post('/api/login', (req, res) => {
 });
 
 app.get('/api/getCourseDetails', (req, res) => {
-    console.log(`[getCourseDetails REQUEST]`);
+    //console.log(`[getCourseDetails REQUEST]`);
+    getCourseDetailsRequests++;
+    updateConsole();
+
     if (!req.query.course) {
         res.send({ success: false, error: 'ERROR: Please provide a course.' });
         return;
@@ -214,7 +219,10 @@ app.post('/api/searchSchedule', (req, res) => {
         return;
     }
 
-    console.log(`[searchSchedule REQUEST]`);
+    //console.log(`[searchSchedule REQUEST]`);
+    searchScheduleRequests++;
+    updateConsole();
+
     if (req.body.InstrName === '' && req.body.CourseCodes === '' && req.body.Dept === 'ALL' && req.body.Breadth === 'ANY') {
         res.send({
             success: false,
@@ -352,6 +360,17 @@ function startProdServer() {
     require('https').createServer(lex.httpsOptions, lex.middleware(app)).listen(443, function () {
         console.log("Listening for ACME tls-sni-01 challenges and serve app on", this.address());
     });
+}
+
+function updateConsole(){
+    console.reset();
+    console.log();
+    console.log(`searchScheduleRequests: ${searchScheduleRequests}`);
+    console.log(`getCourseDetailsRequests: ${getCourseDetailsRequests}`);
+}
+
+console.reset = function () {
+    return process.stdout.write('\033c');
 }
 
 if (config.production) {
