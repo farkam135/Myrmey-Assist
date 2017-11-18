@@ -9,10 +9,13 @@ const path = require('path');
 const config = require('./config.json');
 
 let serverInitiated = false;
-let searchScheduleRequests = 0;
-let getCourseDetailsRequests = 0;
 
-const services = {}
+const STATS = {
+    searchScheduleRequests: 0,
+    getCourseDetailsRequests: 0
+};
+
+const services = {};
 if (config.watchlist.enable) {
     services.watchlist = require('./watchlist.js');
     services.watchlist.init(UCI.SOC, MYRMEYDB, config.watchlist.gmail_auth, config.watchlist.interval);
@@ -199,7 +202,7 @@ app.post('/api/login', (req, res) => {
 
 app.get('/api/getCourseDetails', (req, res) => {
     //console.log(`[getCourseDetails REQUEST]`);
-    getCourseDetailsRequests++;
+    STATS.getCourseDetailsRequests++;
     updateConsole();
 
     if (!req.query.course) {
@@ -220,7 +223,7 @@ app.post('/api/searchSchedule', (req, res) => {
     }
 
     //console.log(`[searchSchedule REQUEST]`);
-    searchScheduleRequests++;
+    STATS.searchScheduleRequests++;
     updateConsole();
 
     if (req.body.InstrName === '' && req.body.CourseCodes === '' && req.body.Dept === 'ALL' && req.body.Breadth === 'ANY') {
@@ -365,8 +368,8 @@ function startProdServer() {
 function updateConsole(){
     console.reset();
     console.log();
-    console.log(`searchScheduleRequests: ${searchScheduleRequests}`);
-    console.log(`getCourseDetailsRequests: ${getCourseDetailsRequests}`);
+    console.log(`searchScheduleRequests: ${STATS.searchScheduleRequests}`);
+    console.log(`getCourseDetailsRequests: ${STATS.getCourseDetailsRequests}`);
 }
 
 console.reset = function () {
