@@ -24,7 +24,7 @@ class HomePage extends Component {
                                     <i className="fa fa-lg fa-github"></i>
                                 </span>
                             </a>
-                            {this.props.user.user ?
+                            {this.props.user ?
                                 <a className="navbar-item">{this.props.user.studentInfo.name}</a>
                                 :
                                 <a className="navbar-item" onClick={this.props.openLogin}>Login</a>
@@ -52,6 +52,6 @@ class HomePage extends Component {
 
 export default connect((store) => {
     return {
-        user: store.user,
+        user: store.userState.user,
     }
 })(HomePage);

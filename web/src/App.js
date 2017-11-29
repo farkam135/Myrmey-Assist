@@ -383,7 +383,7 @@ class App extends Component {
       data: this.state[this.state.currScreen]
     }
 
-    console.log(this.state.user);
+    console.log(this.props.user);
 
     return (
       <div className="App">
@@ -397,6 +397,6 @@ class App extends Component {
 
 export default connect((store) => {
   return {
-    user: store.user,
+    user: store.userState.user,
   }
 })(App);
