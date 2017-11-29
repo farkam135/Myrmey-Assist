@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Schedule from '../../components/Schedule';
 import Inspector from '../../components/Inspector';
 import './style.css';
@@ -6,6 +7,7 @@ import myrmey from '../../assets/myrmey.svg';
 
 class HomePage extends Component {
     render() {
+        console.log(this.props.user.user);
         return (
             <div>
                 <nav className="navbar is-light">
@@ -22,7 +24,7 @@ class HomePage extends Component {
                                     <i className="fa fa-lg fa-github"></i>
                                 </span>
                             </a>
-                            {this.props.user ?
+                            {this.props.user.user ?
                                 <a className="navbar-item">{this.props.user.studentInfo.name}</a>
                                 :
                                 <a className="navbar-item" onClick={this.props.openLogin}>Login</a>
@@ -48,4 +50,8 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+export default connect((store) => {
+    return {
+        user: store.user,
+    }
+})(HomePage);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import update from 'immutability-helper';
 import NotificationSystem from 'react-notification-system';
 
@@ -382,6 +383,8 @@ class App extends Component {
       data: this.state[this.state.currScreen]
     }
 
+    console.log(this.state.user);
+
     return (
       <div className="App">
         <HomePage user={this.state.user} schedule={this.state.schedule} removePlannedCourse={this.removePlannedCourse} screen={screen} openLogin={this.openLogin} popScreen={this.state.history.length > 0 ? this.popScreen : undefined} />
@@ -392,4 +395,8 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect((store) => {
+  return {
+    user: store.user,
+  }
+})(App);
