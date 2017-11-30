@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Schedule from '../../components/Schedule';
 import Inspector from '../../components/Inspector';
 import './style.css';
@@ -6,6 +7,7 @@ import myrmey from '../../assets/myrmey.svg';
 
 class HomePage extends Component {
     render() {
+        console.log(this.props.user.user);
         return (
             <div>
                 <nav className="navbar is-light">
@@ -48,4 +50,8 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+export default connect((store) => {
+    return {
+        user: store.userState.user,
+    }
+})(HomePage);
