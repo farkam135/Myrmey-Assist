@@ -29,3 +29,6 @@ node_modules
 web/src/theme\.css
 
 web/build/
+
+#secrets
+.env

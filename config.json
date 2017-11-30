@@ -3,9 +3,9 @@
     "production": false,
     "db": {
         "host": "localhost",
-        "user": "myrmey",
+        "user": "postgres",
         "password": "",
-        "database": "myrmey",
+        "database": "postgres",
         "port": "5432"
     },
     "watchlist": {
