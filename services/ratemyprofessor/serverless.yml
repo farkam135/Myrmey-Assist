@@ -1,0 +1,76 @@
+# MyrmeyAssist-RateMyProfessor Service
+#
+# The RateMyProfessor service is used to scrape RMP data and store
+# that data in a DynamoDB table.
+
+service: MyrmeyAssist-RateMyProfessor
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  iamRoleStatements:
+    - Effect: Allow
+      Action: # Gives permission to DynamoDB tables in a specific region
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${file(../config.json):region}:${file(../config.json):account_id}:table/${self:resources.Resources.professorsTable.Properties.TableName}"
+
+  stage: ${file(../config.json):stage}
+  region: ${file(../config.json):region}
+  profile: Serverless
+
+# you can add statements to the Lambda function's IAM Role here
+#  iamRoleStatements:
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:ListBucket"
+#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:PutObject"
+#      Resource:
+#        Fn::Join:
+#          - ""
+#          - - "arn:aws:s3:::"
+#            - "Ref" : "ServerlessDeploymentBucket"
+#            - "/*"
+
+# you can define service wide environment variables here
+#  environment:
+#    variable1: value1
+
+# you can add packaging information here
+package:
+#    - include-me-dir/**
+  exclude:
+    - config.json
+    - package.json
+    - yarn.lock
+#    - exclude-me-dir/**
+
+plugins:
+  - serverless-plugin-include-dependencies
+
+functions:
+  updateProfessors:
+    handler: handler.updateProfessors
+
+resources:
+  Resources:
+    professorsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: MyrmeyAssist-Professors
+        AttributeDefinitions:
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: name
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: ${file(./config.json):readUnits}
+          WriteCapacityUnits: ${file(./config.json):writeUnits}

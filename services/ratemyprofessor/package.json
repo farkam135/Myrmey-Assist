@@ -1,0 +1,10 @@
+{
+  "name": "MyrmeyAssist-RateMyProfessor",
+  "version": "1.0.0",
+  "description": "A service used to scrape RateMyProfessor and store the data in a DynamoDB table",
+  "author": "Kamron Erani",
+  "license": "MIT",
+  "dependencies": {
+    "UCI": "git+https://github.com/farkam135/UCI-API.git"
+  }
+}
