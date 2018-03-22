@@ -1,5 +1,9 @@
 {
     "stage": "dev",
     "region": "us-west-2",
-    "account_id": ""
+    "account_id": "",
+    "ratemyprofessor": {
+        "readUnits": 1,
+        "writeUnits": 1
+    }
 }

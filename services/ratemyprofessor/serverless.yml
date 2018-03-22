@@ -72,5 +72,5 @@ resources:
           - AttributeName: name
             KeyType: HASH
         ProvisionedThroughput:
-          ReadCapacityUnits: ${file(./config.json):readUnits}
-          WriteCapacityUnits: ${file(./config.json):writeUnits}
+          ReadCapacityUnits: ${file(../config.json):ratemyprofessor.readUnits}
+          WriteCapacityUnits: ${file(../config.json):ratemyprofessor.writeUnits}
