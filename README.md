@@ -14,3 +14,8 @@ An all in one UCI SOC
 ### Website Development
 Start the react development server by running: `cd ./web && npm i && npm start`
 Make sure the web server and database are running as well!
+
+
+## Credits
+Bryan Fullam  
+Santiago Martin  
